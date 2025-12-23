@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Login Form Documentation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        h2 {
+            color: #667eea;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        
+        h3 {
+            color: #764ba2;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        
+        h4 {
+            color: #555;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .warning-box {
+            background: #fff4e6;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .error-box {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        code {
+            background: #f5f5f5;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        pre code {
+            background: none;
+            color: #f8f8f2;
+            padding: 0;
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .flowchart {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            overflow-x: auto;
+        }
+        
+        .assignment {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .assignment h4 {
+            color: white;
+            margin-top: 0;
+        }
+        
+        .assignment ul {
+            margin-left: 20px;
+        }
+        
+        .assignment li {
+            margin-bottom: 5px;
+        }
+        
+        .difficulty {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .easy {
+            background: #4caf50;
+        }
+        
+        .medium {
+            background: #ff9800;
+        }
+        
+        .hard {
+            background: #f44336;
+        }
+        
+        .toc {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 HTML Login Form Documentation</h1>
+            <p>Complete Analysis, Troubleshooting Guide & Practice Assignments</p>
+        </header>
+        
+        <div class="content">
+            <div class="toc">
+                <h3>📑 Table of Contents</h3>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#structure">Document Structure</a></li>
+                    <li><a href="#components">Form Components</a></li>
+                    <li><a href="#flowchart">Form Flow Diagram</a></li>
+                    <li><a href="#troubleshooting">Troubleshooting Points</a></li>
+                    <li><a href="#recommendations">Recommendations</a></li>
+                    <li><a href="#assignments">Practice Assignments</a></li>
+                </ul>
+            </div>
+
+            <section id="overview" class="section">
+                <h2>📋 Overview</h2>
+                <p>This HTML document contains a comprehensive login and registration form with various input types including text fields, radio buttons, checkboxes, dropdowns, and file upload functionality.</p>
+                
+                <div class="info-box">
+                    <strong>Purpose:</strong> Multi-purpose registration form collecting user credentials, personal information, skills, and documents.
+                </div>
+            </section>
+
+            <section id="structure" class="section">
+                <h2>🏗️ Document Structure</h2>
+                
+                <h3>Head Section</h3>
+                <ul>
+                    <li><strong>Title:</strong> "priya's page"</li>
+                    <li>No CSS styling included</li>
+                    <li>No external scripts referenced</li>
+                </ul>
+
+                <h3>Body Section</h3>
+                <p>Contains a single form with multiple input elements for user data collection.</p>
+            </section>
+
+            <section id="components" class="section">
+                <h2>🧩 Form Components</h2>
+
+                <h3>1. Text Input Fields</h3>
+                
+                <h4>Username Field</h4>
+                <ul>
+                    <li>Label: "username" (bold formatting)</li>
+                    <li>Input type: <code>text</code></li>
+                    <li>No validation attributes</li>
+                </ul>
+
+                <h4>Password Field</h4>
+                <ul>
+                    <li>Label: "password" (bold formatting)</li>
+                    <li>Input type: <code>password</code></li>
+                    <li>Attribute: <code>required</code> (prevents form submission if empty)</li>
+                </ul>
+
+                <h4>Number Field</h4>
+                <ul>
+                    <li>Label: "number" (italic formatting)</li>
+                    <li>Input type: <code>number</code></li>
+                    <li>Allows numeric input only</li>
+                </ul>
+
+                <h3>2. Radio Buttons (Gender Selection)</h3>
+                <p>Three mutually exclusive options:</p>
+                <ul>
+                    <li>Male (<code>value="male"</code>)</li>
+                    <li>Female (<code>value="female"</code>)</li>
+                    <li>Prefer not to tell (<code>value="na"</code>)</li>
+                </ul>
+                <div class="info-box">
+                    <strong>Note:</strong> All share the same <code>name="gender"</code> attribute, ensuring only one can be selected.
+                </div>
+
+                <h3>3. Checkboxes (Skills Selection)</h3>
+                <p>Multiple selection allowed:</p>
+                <ul>
+                    <li>HTML (<code>value="html"</code>)</li>
+                    <li>JavaScript (<code>value="js"</code>)</li>
+                    <li>CSS (<code>value="css"</code>)</li>
+                </ul>
+
+                <h3>4. Dropdown Menu (State Selection)</h3>
+                <ul>
+                    <li>Label: "choose state:"</li>
+                    <li>Default option: "--select--" (empty value)</li>
+                    <li>Options: Maharashtra, UP, AP (pre-selected)</li>
+                </ul>
+
+                <h3>5. File Upload</h3>
+                <ul>
+                    <li>Label: "upload file:"</li>
+                    <li>Input type: <code>file</code></li>
+                    <li>Name attribute: <code>userfile</code></li>
+                </ul>
+
+                <h3>6. Form Buttons</h3>
+                <ul>
+                    <li><strong>Submit Button:</strong> Triggers form submission</li>
+                    <li><strong>Cancel Button:</strong> Type set to "cancel" (non-standard)</li>
+                </ul>
+            </section>
+
+            <section id="flowchart" class="section">
+                <h2>📊 Form Flow Diagram</h2>
+                <div class="flowchart">
+                    <svg width="800" height="900" viewBox="0 0 800 900" style="max-width: 100%; height: auto;">
+                        <!-- User Opens Form -->
+                        <rect x="300" y="20" width="200" height="60" rx="10" fill="#667eea" stroke="#764ba2" stroke-width="2"/>
+                        <text x="400" y="55" text-anchor="middle" fill="white" font-weight="bold">User Opens Form</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 80 L 400 110" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Username Input -->
+                        <rect x="300" y="110" width="200" height="60" rx="10" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+                        <text x="400" y="145" text-anchor="middle" fill="white" font-weight="bold">Username Input</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 170 L 400 200" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Password Input -->
+                        <rect x="300" y="200" width="200" height="60" rx="10" fill="#ff5252" stroke="#c62828" stroke-width="2"/>
+                        <text x="400" y="225" text-anchor="middle" fill="white" font-weight="bold">Password Input</text>
+                        <text x="400" y="245" text-anchor="middle" fill="white" font-size="12">(Required)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 260 L 400 290" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Number Input -->
+                        <rect x="300" y="290" width="200" height="60" rx="10" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+                        <text x="400" y="325" text-anchor="middle" fill="white" font-weight="bold">Number Input</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 350 L 400 380" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Select Gender -->
+                        <rect x="300" y="380" width="200" height="60" rx="10" fill="#ff9800" stroke="#f57c00" stroke-width="2"/>
+                        <text x="400" y="405" text-anchor="middle" fill="white" font-weight="bold">Select Gender</text>
+                        <text x="400" y="425" text-anchor="middle" fill="white" font-size="12">(Radio Buttons)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 440 L 400 470" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Select Skills -->
+                        <rect x="300" y="470" width="200" height="60" rx="10" fill="#ff9800" stroke="#f57c00" stroke-width="2"/>
+                        <text x="400" y="495" text-anchor="middle" fill="white" font-weight="bold">Select Skills</text>
+                        <text x="400" y="515" text-anchor="middle" fill="white" font-size="12">(Checkboxes)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 530 L 400 560" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Choose State -->
+                        <rect x="300" y="560" width="200" height="60" rx="10" fill="#2196f3" stroke="#1565c0" stroke-width="2"/>
+                        <text x="400" y="585" text-anchor="middle" fill="white" font-weight="bold">Choose State</text>
+                        <text x="400" y="605" text-anchor="middle" fill="white" font-size="12">(Dropdown)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 620 L 400 650" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Upload File -->
+                        <rect x="300" y="650" width="200" height="60" rx="10" fill="#9c27b0" stroke="#6a1b9a" stroke-width="2"/>
+                        <text x="400" y="675" text-anchor="middle" fill="white" font-weight="bold">Upload File</text>
+                        <text x="400" y="695" text-anchor="middle" fill="white" font-size="12">(Optional)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 710 L 400 740" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Click Submit -->
+                        <polygon points="400,740 480,780 400,820 320,780" fill="#ffc107" stroke="#f57f17" stroke-width="2"/>
+                        <text x="400" y="785" text-anchor="middle" fill="white" font-weight="bold">Click Submit</text>
+                        
+                        <!-- Validation Error Path -->
+                        <path d="M 320 780 L 200 780 L 200 220 L 300 220" stroke="#f44336" stroke-width="2" fill="none" marker-end="url(#arrowhead)" stroke-dasharray="5,5"/>
+                        <text x="150" y="500" text-anchor="middle" fill="#f44336" font-size="12" font-weight="bold">Password Empty</text>
+                        
+                        <!-- Success Path -->
+                        <path d="M 400 820 L 400 850" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Form Submits -->
+                        <rect x="300" y="850" width="200" height="50" rx="10" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
+                        <text x="400" y="880" text-anchor="middle" fill="white" font-weight="bold">Form Submits ✓</text>
+                        
+                        <!-- Arrow marker definition -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </section>
+
+            <section id="troubleshooting" class="section">
+                <h2>🔧 Troubleshooting Points</h2>
+
+                <div class="error-box">
+                    <h4>1. Form Action Missing ❌</h4>
+                    <p><strong>Issue:</strong> The <code>&lt;form&gt;</code> tag has no <code>action</code> or <code>method</code> attribute.</p>
+                    <pre><code>&lt;form action="/submit" method="POST"&gt;</code></pre>
+                    <p><strong>Impact:</strong> Form won't submit data to any server endpoint.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>2. Self-Closing Input Tags ❌</h4>
+                    <p><strong>Issue:</strong> Input elements written as <code>&lt;input&gt;&lt;/input&gt;</code></p>
+                    <pre><code>&lt;!-- Current (incorrect) --&gt;
+&lt;input type="text"&gt;&lt;/input&gt;
+
+&lt;!-- Should be --&gt;
+&lt;input type="text"&gt;</code></pre>
+                    <p><strong>Impact:</strong> Non-standard HTML5 syntax.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>3. Cancel Button Type ❌</h4>
+                    <p><strong>Issue:</strong> <code>type="cancel"</code> is not a valid button type.</p>
+                    <pre><code>&lt;!-- Should be one of: --&gt;
+&lt;button type="button"&gt;Cancel&lt;/button&gt;
+&lt;button type="reset"&gt;Reset&lt;/button&gt;</code></pre>
+                    <p><strong>Impact:</strong> May not behave as expected across browsers.</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>4. Missing Name Attributes ⚠️</h4>
+                    <p><strong>Issue:</strong> Username and number inputs lack <code>name</code> attributes.</p>
+                    <pre><code>&lt;input type="text" name="username"&gt;
+&lt;input type="number" name="phone"&gt;</code></pre>
+                    <p><strong>Impact:</strong> Form data won't be submitted for these fields.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>5. Table Tag Errors ❌</h4>
+                    <p><strong>Issue:</strong> Uses <code>&lt;t-head&gt;</code> and <code>&lt;t-body&gt;</code> instead of <code>&lt;thead&gt;</code> and <code>&lt;tbody&gt;</code>.</p>
+                </div>
+
+                <div class="warning-box">
+                    <h4>6. Accessibility Issues ⚠️</h4>
+                    <p><strong>Issue:</strong> Labels not properly associated with inputs.</p>
+                    <pre><code>&lt;!-- Better approach --&gt;
+&lt;label for="username"&gt;&lt;strong&gt;Username&lt;/strong&gt;&lt;/label&gt;
+&lt;input type="text" id="username" name="username"&gt;</code></pre>
+                    <p><strong>Impact:</strong> Screen readers can't properly associate labels with inputs.</p>
+                </div>
+
+                <div class="error-box">
+                    <h4>7. File Path Issues ❌</h4>
+                    <p><strong>Issue:</strong> Absolute local file paths won't work on other systems.</p>
+                    <pre><code>&lt;!-- Should use relative paths --&gt;
+&lt;img src="pics/pic.jpg" alt="profile picture"&gt;</code></pre>
+                </div>
+            </section>
+
+            <section id="recommendations" class="section">
+                <h2>💡 Recommendations for Improvement</h2>
+                
+                <div class="success-box">
+                    <ol>
+                        <li><strong>Add form validation:</strong> Include HTML5 validation attributes</li>
+                        <li><strong>Add CSS styling:</strong> Link external stylesheet for better presentation</li>
+                        <li><strong>Include form action:</strong> Specify where form data should be submitted</li>
+                        <li><strong>Fix accessibility:</strong> Use proper <code>for</code> and <code>id</code> attributes</li>
+                        <li><strong>Add JavaScript validation:</strong> Client-side validation for better UX</li>
+                        <li><strong>Use semantic HTML:</strong> Consider using <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code></li>
+                        <li><strong>Add ARIA labels:</strong> Improve accessibility for screen readers</li>
+                    </ol>
+                </div>
+
+                <h3>Data Collection Summary</h3>
+                <table>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                    </tr>
+                    <tr>
+                        <td>Username</td>
+                        <td>Text</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Password</td>
+                        <td>Text (masked)</td>
+                        <td>Yes</td>
+                    </tr>
+                    <tr>
+                        <td>Number</td>
+                        <td>Numeric</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Gender</td>
+                        <td>Single selection</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>Skills</td>
+                        <td>Multiple selection</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>State</td>
+                        <td>Dropdown</td>
+                        <td>No</td>
+                    </tr>
+                    <tr>
+                        <td>File</td>
+                        <td>File upload</td>
+                        <td>No</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section id="assignments" class="section">
+                <h2>📚 Practice Assignments</h2>
+
+                <div class="assignment">
+                    <h4>Assignment 1: Fix All Errors <span class="difficulty easy">EASY</span></h4>
+                    <p><strong>Objective:</strong> Correct all the syntax and structural errors in the original form.</p>
+                    <ul>
+                        <li>Add proper <code>action</code> and <code>method</code> attributes to the form</li>
+                        <li>Fix all input tags (remove closing tags)</li>
+                        <li>Add missing <code>name</code> attributes to username and number fields</li>
+                        <li>Change cancel button to proper <code>type="button"</code></li>
+                        <li>Fix table tags from <code>&lt;t-head&gt;</code> to <code>&lt;thead&gt;</code></li>
+                    </ul>
+                    <p><strong>Expected Outcome:</strong> A fully functional, error-free HTML form.</p>
+                </div>
+
+                <div class="assignment">
+                    <h4>Assignment 2: Enhance Accessibility <span class="difficulty easy">EASY</span></h4>
+                    <p><strong>Objective:</strong> Make the form accessible for screen readers and keyboard navigation.</p>
+                    <ul>
+                        <li>Add unique <code>id</code> attributes to all input fields</li>
+                        <li>Connect labels to inputs using <code>for</code> attribute</li>
+                        <li>Add <code>aria-label</code> or <code>aria-labelledby</code> where needed</li>
+                        <li>Ensure proper tab order with <code>tabindex</code> if necessary</li>
+                        <li>Add <code>alt</code> text to any images</li>
+                    </ul>
+                    <p><strong>Expected Outcome:</strong> A form that passes WCAG 2.1 Level AA accessibility standards.</p>
+                </div>
+
+                <div class="assignment">
+                    <h4>Assignment 3: Add Comprehensive Validation <span class="difficulty medium">MEDIUM</span></h4>
+                    <p><strong>Objective:</strong> Implement both HTML5 and JavaScript validation.</p>
+                    <ul>
+                        <li>Add HTML5 validation: <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code></li>
+                        <li>Username: minimum 3 characters, alphanumeric only</li>
+                        <li>Password: minimum 8 characters, must contain uppercase, lowercase, number, special char</li>
+                        <li>Number: phone number format (10 digits)</li>
+                        <li>Add JavaScript validation with custom error messages</li>
+                        <li>Display validation feedback in real-time</li>
+                        <li>Prevent form submission until all fields are valid</li>
+                    </ul>
+                    <p><strong>Expected Outcome:</strong> A form with robust client-side validation and user feedback.</p>
+                </div>
+
+                <div class="assignment">
+                    <h4>Assignment 4: Style with CSS and Add Responsiveness <span class="difficulty medium">MEDIUM</span></h4>
+                    <p><strong>Objective:</strong> Create a professional, mobile-responsive design.</p>
+                    <ul>
+                        <li>Create an external CSS file and link it</li>
+                        <li>Style the form with modern design principles (colors, spacing, typography)</li>
+                        <li>Add hover and focus states for interactive elements</li>
+                        <li>Make the form responsive using media queries (mobile, tablet, desktop)</li>
+                        <li>Add CSS transitions and animations for better UX</li>
+                        <li>Implement a card-based layout with shadows</li>
+                        <li>Style validation messages (success/error states)</li>
+                    </ul>
+                    <p><strong>Expected Outcome:</strong> A visually appealing, mobile-friendly form.</p>
+                </div>
+
+                <div class="assignment">
+                    <h4>Assignment 5: Create a Complete Registration System <span class="difficulty hard">HARD</span></h4>
+                    <p><strong>Objective:</strong> Build a full-featured registration form with backend integration.</p>
+                    <ul>
+                        <li>Create a multi-step form (Personal Info → Contact → Skills → Review)</li>
+                        <li>Add password strength indicator</li>
+                        <li>Implement "Show/Hide Password" toggle</li>
+                        <li>Add email field with proper validation</li>
+                        <li>Implement file upload preview (for images)</li>
+                        <li>Add "Terms and Conditions" checkbox (required)</li>
+                        <li>Create a progress bar showing form completion</li>
+                        <li>Store form data in localStorage before submission</li>
+                        <li>Add a confirmation modal after successful submission</li>
+                        <li>Implement form data display on a separate "Profile" page</li>
+                        <li>Add option to edit submitted information</li>
+                        <li><strong>Bonus:</strong> Connect to a backend API (Node.js/PHP) to store data in database</li>
+                    </ul>
+                    <p><strong>Expected Outcome:</strong> A production-ready registration system with excellent UX.</p>
+                </div>
+
+                <div class="info-box">
+                    <h4>📝 Assignment Submission Guidelines</h4>
+                    <ul>
+                        <li>Test your code in multiple browsers (Chrome, Firefox, Safari, Edge)</li>
+                        <li>Validate your HTML using W3C Validator</li>
+                        <li>Ensure mobile responsiveness on different screen sizes</li>
+                        <li>Comment your code for better readability</li>
+                        <li>Create a README file explaining your implementation</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>📚 HTML Form Documentation | Created for Learning & Practice</p>
+            <p>© 2025 - Educational Resource</p>
+        </footer>
+    </div>
+</body>
+</html>
