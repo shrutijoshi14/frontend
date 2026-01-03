@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CSS Project Documentation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #2d3748;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        h3 {
+            color: #4a5568;
+            margin: 20px 0 10px 0;
+            font-size: 1.3rem;
+        }
+
+        .code-block {
+            background: #2d3748;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .file-structure {
+            background: #f7fafc;
+            padding: 20px;
+            border-left: 4px solid #667eea;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .troubleshoot {
+            background: #fff5f5;
+            border-left: 4px solid #f56565;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .troubleshoot h4 {
+            color: #c53030;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .priority-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        .priority-table th,
+        .priority-table td {
+            border: 1px solid #e2e8f0;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .priority-table th {
+            background: #667eea;
+            color: white;
+        }
+
+        .priority-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+
+        .mermaid-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-top: 10px;
+        }
+
+        li {
+            margin: 8px 0;
+        }
+
+        .highlight {
+            background: #fef5e7;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 CSS Project Documentation</h1>
+            <p>Understanding CSS Specificity & Style Application</p>
+        </header>
+
+        <div class="content">
+            <section>
+                <h2>📁 Project Structure</h2>
+                <div class="file-structure">
+                    <pre>
+project/
+├── index.html          (Main HTML file)
+├── style.css           (External stylesheet)
+└── pics/
+    └── pic.jpg         (Profile picture)
+                    </pre>
+                </div>
+            </section>
+
+            <section>
+                <h2>🔄 CSS Application Flow Chart</h2>
+                <div class="mermaid-container">
+                    <div class="mermaid">
+                        graph TD
+                        A[Browser Loads HTML] --> B{CSS Sources Found?}
+                        B -->|Yes| C[Inline CSS]
+                        B -->|No| Z[Default Browser Styles]
+                        C --> D[Internal CSS]
+                        D --> E[External CSS]
+                        E --> F{Check Specificity}
+                        F --> G[Calculate Weight]
+                        G --> H{Inline Style?}
+                        H -->|Yes| I[Priority: 1000]
+                        H -->|No| J{ID Selector?}
+                        J -->|Yes| K[Priority: 100]
+                        J -->|No| L{Class/Attribute?}
+                        L -->|Yes| M[Priority: 10]
+                        L -->|No| N[Element: Priority 1]
+                        I --> O[Apply Highest Priority]
+                        K --> O
+                        M --> O
+                        N --> O
+                        O --> P[Render Final Styles]
+                        
+                        style A fill:#667eea,color:#fff
+                        style P fill:#48bb78,color:#fff
+                        style I fill:#f56565,color:#fff
+                        style K fill:#ed8936,color:#fff
+                        style M fill:#ecc94b,color:#000
+                        style N fill:#4299e1,color:#fff
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2>🎯 CSS Specificity Priority</h2>
+                <div class="info-box">
+                    <strong>Rule:</strong> Inline CSS > Internal CSS > External CSS
+                    <br>
+                    <em>However, specificity of selectors can override this rule!</em>
+                </div>
+
+                <table class="priority-table">
+                    <thead>
+                        <tr>
+                            <th>Priority Level</th>
+                            <th>Selector Type</th>
+                            <th>Weight</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1 (Highest)</td>
+                            <td>Inline Style</td>
+                            <td>1000</td>
+                            <td><code>style="color: blue;"</code></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>ID Selector</td>
+                            <td>100</td>
+                            <td><code>#sr { }</code></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Class/Pseudo-class/Attribute</td>
+                            <td>10</td>
+                            <td><code>.jr { }</code></td>
+                        </tr>
+                        <tr>
+                            <td>4 (Lowest)</td>
+                            <td>Element/Pseudo-element</td>
+                            <td>1</td>
+                            <td><code>p { }</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section>
+                <h2>📝 Your Project Analysis</h2>
+                
+                <h3>HTML Structure</h3>
+                <div class="code-block">
+&lt;img src="pics/pic.jpg" height="200px" width="200px"&gt;
+&lt;p id="sr"&gt;Priyanka Sonare : &lt;span&gt;Sr. devloper&lt;/span&gt;&lt;/p&gt;
+&lt;p class="jr"&gt;Ankush Patil : &lt;span class="text"&gt;jr. devloper&lt;/span&gt;&lt;/p&gt;
+&lt;p class="jr"&gt;Anam Zaki : &lt;span class="text"&gt;jr. devloper&lt;/span&gt;&lt;/p&gt;
+                </div>
+
+                <h3>Applied Styles (from style.css)</h3>
+                <div class="code-block">
+/* All paragraphs */
+p {
+    background-color: aqua;
+    color: #000;
+    text-align: center;
+    width: 500px;
+    margin: 30px;
+    padding: 50px;
+}
+
+/* ID selector - Highest specificity */
+#sr {
+    color: rgb(103, 103, 220);  /* Overrides p color */
+    font-size: 30px;
+}
+
+/* Class selectors */
+.jr {
+    font-size: 2rem;
+    font-weight: 10px;
+}
+
+.text {
+    font-style: italic;
+}
+                </div>
+            </section>
+
+            <section>
+                <h2>⚠️ Troubleshooting Guide</h2>
+                
+                <div class="troubleshoot">
+                    <h4>Problem 1: CSS Not Loading</h4>
+                    <ul>
+                        <li>Check if <span class="highlight">style.css</span> is in the same directory as <span class="highlight">index.html</span></li>
+                        <li>Verify the path in link tag: <code>&lt;link rel="stylesheet" href="style.css"&gt;</code></li>
+                        <li>Clear browser cache (Ctrl+F5 or Cmd+Shift+R)</li>
+                        <li>Check browser console for 404 errors</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshoot">
+                    <h4>Problem 2: Image Not Displaying</h4>
+                    <ul>
+                        <li>Ensure <span class="highlight">pics</span> folder exists in project directory</li>
+                        <li>Check image filename matches exactly: <span class="highlight">pic.jpg</span></li>
+                        <li>Verify image path: <code>src="pics/pic.jpg"</code></li>
+                        <li>Check file extension (jpg vs jpeg vs png)</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshoot">
+                    <h4>Problem 3: Styles Not Applying as Expected</h4>
+                    <ul>
+                        <li>Check CSS selector specificity (ID > Class > Element)</li>
+                        <li>Uncomment internal styles in HTML to test priority</li>
+                        <li>Use browser DevTools (F12) to inspect applied styles</li>
+                        <li>Look for typos in class/ID names (case-sensitive!)</li>
+                        <li>Verify CSS syntax (missing semicolons, brackets)</li>
+                    </ul>
+                </div>
+
+                <div class="troubleshoot">
+                    <h4>Problem 4: font-weight Not Working</h4>
+                    <ul>
+                        <li><code>font-weight: 10px;</code> is INVALID</li>
+                        <li>Use: <code>font-weight: normal;</code> (400)</li>
+                        <li>Or: <code>font-weight: bold;</code> (700)</li>
+                        <li>Or: <code>font-weight: 100-900;</code> (numeric values)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section>
+                <h2>🔍 Specificity Calculation Examples</h2>
+                
+                <div class="info-box">
+                    <h3>Example 1: Priyanka Sonare (ID selector)</h3>
+                    <p><strong>Selectors applied:</strong></p>
+                    <ul>
+                        <li><code>p { }</code> → Specificity: 0-0-1</li>
+                        <li><code>#sr { }</code> → Specificity: 1-0-0</li>
+                    </ul>
+                    <p><strong>Result:</strong> <code>#sr</code> wins! Color will be <span class="highlight">rgb(103, 103, 220)</span>, not black.</p>
+                </div>
+
+                <div class="info-box">
+                    <h3>Example 2: Junior Developers (Class selector)</h3>
+                    <p><strong>Selectors applied:</strong></p>
+                    <ul>
+                        <li><code>p { }</code> → Specificity: 0-0-1</li>
+                        <li><code>.jr { }</code> → Specificity: 0-1-0</li>
+                        <li><code>.text { }</code> → Specificity: 0-1-0</li>
+                    </ul>
+                    <p><strong>Result:</strong> Class selectors override element selector. Font-size will be <span class="highlight">2rem</span>.</p>
+                </div>
+            </section>
+
+            <section>
+                <h2>✅ Best Practices</h2>
+                <ol>
+                    <li><strong>Avoid Inline Styles:</strong> Keep HTML and CSS separated for maintainability</li>
+                    <li><strong>Use External CSS:</strong> Easier to manage and cache</li>
+                    <li><strong>Consistent Naming:</strong> Use meaningful class/ID names</li>
+                    <li><strong>Comment Your Code:</strong> Explain complex selectors</li>
+                    <li><strong>Use Classes Over IDs:</strong> IDs should be unique, classes are reusable</li>
+                    <li><strong>Valid CSS Values:</strong> Check property-value compatibility</li>
+                    <li><strong>Organize Your CSS:</strong> Group related styles together</li>
+                </ol>
+            </section>
+
+            <section>
+                <h2>🚀 Quick Reference</h2>
+                <div class="code-block">
+/* CSS Specificity Formula */
+Inline Style:    1-0-0-0  (1000 points)
+ID:              0-1-0-0  (100 points)
+Class/Attribute: 0-0-1-0  (10 points)
+Element:         0-0-0-1  (1 point)
+
+/* When specificity is equal, the last rule wins */
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                curve: 'basis',
+                padding: 20
+            }
+        });
+    </script>
+</body>
+</html>
