@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Concepts - Day 2 Complete Guide with Interactive Examples</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            line-height: 1.5;
+            color: #d4d4d4;
+        }
+
+        .code-block code {
+            color: #ce9178;
+            font-size: 0.95em;
+        }
+
+        .flowchart-container {
+            background: #f9f9f9;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        table thead {
+            background: #667eea;
+            color: white;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tbody tr:hover {
+            background: #f0f4ff;
+        }
+
+        table tbody tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .note-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .example-box {
+            background: #e7f3ff;
+            border-left: 4px solid #0066cc;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .highlight {
+            background: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: 500;
+        }
+
+        .operator-symbol {
+            color: #d63384;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .tab-button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+
+        .tab-button.active {
+            background: #764ba2;
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .comparison-card {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-list {
+            list-style: none;
+            counter-reset: step-counter;
+        }
+
+        .step-list li {
+            counter-increment: step-counter;
+            margin-bottom: 15px;
+            padding-left: 40px;
+            position: relative;
+        }
+
+        .step-list li:before {
+            content: counter(step-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            background: #667eea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Interactive Examples Styles */
+        .interactive-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .interactive-section h2 {
+            color: white;
+            border-bottom-color: white;
+        }
+
+        .interactive-section h3 {
+            color: #fff;
+        }
+
+        .interactive-demo {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        input[type="number"],
+        input[type="text"] {
+            padding: 10px 15px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus,
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .interactive-section input[type="number"],
+        .interactive-section input[type="text"] {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid white;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #764ba2;
+        }
+
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .interactive-section button {
+            background: white;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .interactive-section button:hover {
+            background: #f0f0f0;
+        }
+
+        .result {
+            background: #f0f4ff;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            color: #000;
+            font-weight: bold;
+            border-left: 4px solid #667eea;
+            font-size: 1.1em;
+            border: 2px solid #667eea;
+        }
+
+        .interactive-section .result {
+            background: rgba(0,0,0,0.3);
+            color: #00ff00;
+            border-left-color: white;
+            border: 2px solid #00ff00;
+            min-height: 70px;
+            font-size: 1.2em;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+
+        .result.empty {
+            color: #999;
+            font-style: italic;
+        }
+
+        .console-output {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 1em;
+            max-height: 250px;
+            overflow-y: auto;
+            line-height: 2;
+            border: 2px solid #00ff00;
+        }
+
+        .console-log {
+            margin: 5px 0;
+            color: #00ff00;
+            font-weight: bold;
+        }
+
+        .game-status {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 15px;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: center;
+            color: #00ff00;
+            border: 3px solid #00ff00;
+            font-family: 'Courier New', monospace;
+            line-height: 1.8;
+        }
+
+        .code-section {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            table {
+                font-size: 0.9em;
+            }
+
+            table th, table td {
+                padding: 8px 10px;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 JavaScript Concepts - Day 2 Complete Guide</h1>
+        <p class="subtitle">Functions | Conditions | Loops | Operators + Interactive Examples</p>
+
+        <!-- ==================== FUNCTIONS SECTION ==================== -->
+        <div class="section">
+            <h2>1️⃣ FUNCTIONS</h2>
+            
+            <h3>What is a Function?</h3>
+            <p>A function is a <span class="highlight">reusable block of code</span> that performs a specific task. You define it once and call it multiple times.</p>
+
+            <div class="code-block">
+                <code>function checkEvenOdd() {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;// code here<br/>
+                }</code>
+            </div>
+
+            <h3>Even/Odd Checker Function Flow</h3>
+            <div class="flowchart-container">
+                <div class="mermaid">
+                    flowchart TD
+                        A["👤 User enters a number<br/>(e.g., 5)"] --> B["🖱️ Click 'Check' Button"]
+                        B --> C["⚙️ Function checkEvenOdd() is called"]
+                        C --> D["📝 Get value from input field"]
+                        D --> E["🔢 Convert to Number"]
+                        E --> F{❓ Is number > 0?}
+                        F -->|❌ NO| G["⚠️ Show: Please enter positive number"]
+                        F -->|✅ YES| H{❓ number % 2 == 0?}
+                        H -->|✅ YES| I["✓ Show: X is even number"]
+                        H -->|❌ NO| J["✓ Show: X is odd number"]
+                        I --> K["📊 Display Result on Page"]
+                        J --> K
+                        G --> K
+                </div>
+            </div>
+
+            <div class="example-box">
+                <strong>Example:</strong><br/>
+                Input: 5<br/>
+                Process: 5 % 2 = 1 (not 0)<br/>
+                Output: "5 is odd number"
+            </div>
+
+            <!-- Interactive Even/Odd -->
+            <h3 style="margin-top: 30px;">🎮 Try It: Even/Odd Checker</h3>
+            <div class="interactive-demo">
+                <div class="input-group">
+                    <input type="number" id="evenOddInput" placeholder="Enter a number" style="background: white; color: #333;">
+                    <button onclick="checkEvenOdd()" style="background: white; color: #667eea;">Check</button>
+                </div>
+                <div class="result" style="background: rgba(255,255,255,0.2); color: white;" id="evenOddResult">Result will appear here...</div>
+            </div>
+
+            <div class="code-section">
+                <strong>📝 Code:</strong>
+                <div class="code-block">
+                    <code>function checkEvenOdd() {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let num = Number(document.getElementById('evenOddInput').value);<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let resultDiv = document.getElementById('evenOddResult');<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (num > 0) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (num % 2 == 0) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultDiv.textContent = `${num} is even`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;} else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultDiv.textContent = `${num} is odd`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;resultDiv.textContent = `Please enter a positive number`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    }</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== CONDITIONAL STATEMENTS ==================== -->
+        <div class="section">
+            <h2>2️⃣ CONDITIONAL STATEMENTS (if-else)</h2>
+            
+            <h3>What are Conditions?</h3>
+            <p>Conditions check if something is <span class="highlight">TRUE or FALSE</span> and execute code accordingly.</p>
+
+            <div class="tabs">
+                <button class="tab-button active" onclick="openTab(event, 'simple')">Simple if-else</button>
+                <button class="tab-button" onclick="openTab(event, 'ladder')">Ladder if-else</button>
+                <button class="tab-button" onclick="openTab(event, 'nested')">Nested if</button>
+            </div>
+
+            <div id="simple" class="tab-content active">
+                <h3>Simple if-else</h3>
+                <div class="code-block">
+                    <code>if (condition) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// code if TRUE<br/>
+                    } else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// code if FALSE<br/>
+                    }</code>
+                </div>
+            </div>
+
+            <div id="ladder" class="tab-content">
+                <h3>Ladder if-else (Multiple conditions)</h3>
+                <div class="code-block">
+                    <code>if (condition1) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// code if condition1 is TRUE<br/>
+                    } else if (condition2) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// code if condition2 is TRUE<br/>
+                    } else if (condition3) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// code if condition3 is TRUE<br/>
+                    } else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// code if all are FALSE<br/>
+                    }</code>
+                </div>
+            </div>
+
+            <div id="nested" class="tab-content">
+                <h3>Nested if (if inside if)</h3>
+                <div class="code-block">
+                    <code>if (condition1) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (condition2) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// both conditions TRUE<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;// condition1 TRUE, condition2 FALSE<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    } else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// condition1 FALSE<br/>
+                    }</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== EXAMPLE 1: GREATEST NUMBER ==================== -->
+        <div class="section">
+            <h2>3️⃣ EXAMPLE 1: Greatest of Three Numbers</h2>
+            
+            <h3>Ladder if-else in Action</h3>
+            <div class="code-block">
+                <code>let n1 = 200;<br/>
+                let n2 = 300;<br/>
+                let n3 = 40;<br/>
+                <br/>
+                if (n1 > n2 && n1 > n3) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log(`${n1} is greatest`);  // ❌ FALSE<br/>
+                } else if (n2 > n1 && n2 > n3) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log(`${n2} is greatest`);  // ✅ TRUE<br/>
+                } else {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log(`${n3} is greatest`);<br/>
+                }</code>
+            </div>
+
+            <h3>Flow Diagram</h3>
+            <div class="flowchart-container">
+                <div class="mermaid">
+                    flowchart TD
+                        A["📊 n1 = 200, n2 = 300, n3 = 40"] --> B{❓ Is n1 > n2 AND<br/>n1 > n3?}
+                        B -->|✅ YES| C["📝 Output: 200 is greatest"]
+                        B -->|❌ NO| D{❓ Is n2 > n1 AND<br/>n2 > n3?}
+                        D -->|✅ YES| E["📝 Output: 300 is greatest ✓"]
+                        D -->|❌ NO| F["📝 Output: n3 is greatest"]
+                        C --> G["🏁 Program Ends"]
+                        E --> G
+                        F --> G
+                </div>
+            </div>
+
+            <!-- Interactive Greatest -->
+            <h3 style="margin-top: 30px;">🎮 Try It: Greatest Number (200, 300, 40)</h3>
+            <div class="interactive-demo">
+                <button onclick="findGreatest()" style="background: white; color: #667eea;">Find Greatest</button>
+                <div class="result" style="background: rgba(255,255,255,0.2); color: white;" id="greatestResult">Result will appear here...</div>
+            </div>
+
+            <div class="code-section">
+                <strong>📝 Code:</strong>
+                <div class="code-block">
+                    <code>function findGreatest() {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let n1 = 200, n2 = 300, n3 = 40;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let greatest;<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (n1 > n2 && n1 > n3) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;greatest = n1;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else if (n2 > n1 && n2 > n3) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;greatest = n2;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;greatest = n3;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('greatestResult').textContent = <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`The greatest number is ${greatest}`;<br/>
+                    }</code>
+                </div>
+            </div>
+
+            <div class="note-box">
+                <strong>🔑 Key Concept:</strong> Only ONE code block executes! The program stops checking after finding a TRUE condition.
+            </div>
+        </div>
+
+        <!-- ==================== LOOPS ==================== -->
+        <div class="section">
+            <h2>4️⃣ LOOPS</h2>
+            
+            <h3>What are Loops?</h3>
+            <p>Loops <span class="highlight">repeat code multiple times</span>. The <span class="operator-symbol">for</span> loop is the most common.</p>
+
+            <h3>For Loop Syntax</h3>
+            <div class="code-block">
+                <code>for (initialization; condition; increment) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;// code to repeat<br/>
+                }</code>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Part</th>
+                        <th>Example</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Initialization</strong></td>
+                        <td><code>let i = 1</code></td>
+                        <td>Start value</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Condition</strong></td>
+                        <td><code>i < 11</code></td>
+                        <td>Keep looping while TRUE</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Increment</strong></td>
+                        <td><code>i++</code></td>
+                        <td>Increase i by 1 each time</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ==================== EXAMPLE 2: MULTIPLICATION TABLE ==================== -->
+        <div class="section">
+            <h2>5️⃣ EXAMPLE 2: Multiplication Table (For Loop)</h2>
+            
+            <div class="code-block">
+                <code>let x = 3;<br/>
+                for (let i = 1; i < 11; i++) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log(`${x} * ${i} == ${x * i}`);<br/>
+                }</code>
+            </div>
+
+            <h3>How it Runs (Step by Step)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Iteration</th>
+                        <th>i Value</th>
+                        <th>Condition i<11?</th>
+                        <th>Output</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1st</td>
+                        <td>1</td>
+                        <td>✅ TRUE</td>
+                        <td>3 * 1 = 3</td>
+                    </tr>
+                    <tr>
+                        <td>2nd</td>
+                        <td>2</td>
+                        <td>✅ TRUE</td>
+                        <td>3 * 2 = 6</td>
+                    </tr>
+                    <tr>
+                        <td>3rd</td>
+                        <td>3</td>
+                        <td>✅ TRUE</td>
+                        <td>3 * 3 = 9</td>
+                    </tr>
+                    <tr>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <td>10th</td>
+                        <td>10</td>
+                        <td>✅ TRUE</td>
+                        <td>3 * 10 = 30</td>
+                    </tr>
+                    <tr>
+                        <td>11th</td>
+                        <td>11</td>
+                        <td>❌ FALSE</td>
+                        <td>Loop STOPS</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Loop Execution Flow</h3>
+            <div class="flowchart-container">
+                <div class="mermaid">
+                    flowchart TD
+                        A["🔄 for loop starts<br/>i = 1"] --> B{❓ Is i < 11?}
+                        B -->|✅ YES| C["📝 Print: 3 * i = result"]
+                        C --> D["⬆️ i++ increase i by 1"]
+                        D --> B
+                        B -->|❌ NO| E["🏁 Loop ends<br/>Exit for loop"]
+                </div>
+            </div>
+
+            <!-- Interactive Multiplication Table -->
+            <h3 style="margin-top: 30px;">🎮 Try It: Multiplication Table</h3>
+            <div class="interactive-demo">
+                <button onclick="showMultiplicationTable()" style="background: white; color: #667eea;">Show 3 × (1-10)</button>
+                <div class="console-output" id="multiplicationOutput"></div>
+            </div>
+
+            <div class="code-section">
+                <strong>📝 Code:</strong>
+                <div class="code-block">
+                    <code>function showMultiplicationTable() {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let output = '';<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let x = 3;<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for (let i = 1; i < 11; i++) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += `<div>${x} × ${i} = ${x * i}</div>`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('multiplicationOutput').innerHTML = output;<br/>
+                    }</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== EXAMPLE 3: BREAK STATEMENT ==================== -->
+        <div class="section">
+            <h2>6️⃣ EXAMPLE 3: Break Statement</h2>
+            
+            <p>The <span class="highlight">break</span> keyword immediately <span class="highlight">stops (exits) the loop</span>.</p>
+
+            <div class="code-block">
+                <code>for (i = 1; i <= 20; i++) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;console.log(`Floor No. ${i}`);<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;if (i == 13) break;  // STOP loop when i = 13<br/>
+                }</code>
+            </div>
+
+            <h3>Output</h3>
+            <div class="code-block">
+                <code>Floor No. 1<br/>
+                Floor No. 2<br/>
+                Floor No. 3<br/>
+                ...<br/>
+                Floor No. 12<br/>
+                Floor No. 13<br/>
+                (Loop BREAKS - stops immediately)</code>
+            </div>
+
+            <h3>Break Statement Flow</h3>
+            <div class="flowchart-container">
+                <div class="mermaid">
+                    flowchart TD
+                        A["🔄 for loop starts<br/>i = 1"] --> B{❓ Is i <= 20?}
+                        B -->|✅ YES| C["📝 Print Floor No. i"]
+                        C --> D{❓ i == 13?}
+                        D -->|✅ YES| E["⛔ BREAK"]
+                        D -->|❌ NO| F["⬆️ i++"]
+                        F --> B
+                        B -->|❌ NO| G["🏁 Loop ends"]
+                        E --> G
+                </div>
+            </div>
+
+            <!-- Interactive Floor Numbers -->
+            <h3 style="margin-top: 30px;">🎮 Try It: Floor Numbering with Break</h3>
+            <div class="interactive-demo">
+                <button onclick="showFloorNumbers()" style="background: white; color: #667eea;">Show Floors 1-20</button>
+                <div class="console-output" id="floorOutput"></div>
+            </div>
+
+            <div class="code-section">
+                <strong>📝 Code:</strong>
+                <div class="code-block">
+                    <code>function showFloorNumbers() {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let output = '';<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for (let i = 1; i <= 20; i++) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (i == 13) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += `<div style="color: #ff6b6b;">Floor No. ${i} (BREAK HERE)</div>`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;output += `<div>Floor No. ${i}</div>`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('floorOutput').innerHTML = output;<br/>
+                    }</code>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== EXAMPLE 4: JACKPOT GAME ==================== -->
+        <div class="section interactive-section">
+            <h2>7️⃣ EXAMPLE 4: 🎰 Jackpot Game (Complete Interactive)</h2>
+            
+            <p style="color: white;">The ultimate example combining loops, conditions, and break statement!</p>
+
+            <div class="code-block">
+                <code>jackpot = Math.floor(Math.random() * 100) + 1;<br/>
+                <br/>
+                for (i = 1; i <= 10; i++) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;guess = prompt('Guess a jackpot number');<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;if (jackpot == guess) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(`You won`);<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;break;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;if (jackpot > guess)<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(`Jackpot is greater than ${guess}`);<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;if (jackpot < guess)<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alert(`Jackpot is smaller than ${guess}`);<br/>
+                }</code>
+            </div>
+
+            <h3 style="color: white;">Complete Game Flow Diagram</h3>
+            <div class="flowchart-container">
+                <div class="mermaid">
+                    flowchart TD
+                        A["🎲 Generate random number<br/>jackpot = ?<br/>i = 1"] --> B{❓ Is i <= 10?}
+                        B -->|✅ YES| C["❓ Ask user to guess"]
+                        C --> D{❓ guess ==<br/>jackpot?}
+                        D -->|✅ YES| E["🎉 Alert: You won!<br/>BREAK"]
+                        D -->|❌ NO| F{❓ guess < jackpot?}
+                        F -->|✅ YES| G["📢 Alert: Jackpot is<br/>GREATER than your guess"]
+                        F -->|❌ NO| H["📢 Alert: Jackpot is<br/>SMALLER than your guess"]
+                        G --> I["⬆️ i++<br/>go to next attempt"]
+                        H --> I
+                        E --> J["🏁 Game Ends"]
+                        I --> B
+                        B -->|❌ NO| K["💔 Alert: Game Over<br/>You had 10 attempts"]
+                        K --> J
+                </div>
+            </div>
+
+            <h3 style="color: white; margin-top: 30px;">🎮 Play the Game Now!</h3>
+            <div class="interactive-demo">
+                <div class="input-group">
+                    <input type="number" id="guessInput" placeholder="Guess a number (1-100)" min="1" max="100" style="background: white; color: #333;">
+                    <button onclick="makeGuess()" style="background: white; color: #667eea;">Make Guess</button>
+                    <button onclick="startNewGame()" style="background: white; color: #667eea;">New Game</button>
+                </div>
+                <div class="game-status" id="gameStatus">
+                    Click "New Game" to start! You have 10 attempts to guess the number (1-100).
+                </div>
+            </div>
+
+            <div class="code-section">
+                <strong>📝 Complete Code:</strong>
+                <div class="code-block">
+                    <code>let jackpot = 0;<br/>
+                    let attempts = 0;<br/>
+                    let gameActive = false;<br/>
+                    <br/>
+                    function startNewGame() {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;jackpot = Math.floor(Math.random() * 100) + 1;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;attempts = 0;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;gameActive = true;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('guessInput').value = '';<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;document.getElementById('gameStatus').textContent = <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'New game started! Guess the number (1-100)!';<br/>
+                    }<br/>
+                    <br/>
+                    function makeGuess() {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (!gameActive) return;<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let guess = Number(document.getElementById('guessInput').value);<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;let statusDiv = document.getElementById('gameStatus');<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (!guess || guess < 1 || guess > 100) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusDiv.textContent = 'Enter a valid number (1-100)';<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;attempts++;<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (jackpot == guess) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusDiv.innerHTML = <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`🎉 You WON!<br/>The number was ${jackpot}<br/>You guessed in ${attempts} attempt(s)!`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gameActive = false;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else if (jackpot > guess) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusDiv.textContent = <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`📈 Jackpot is GREATER than ${guess} (${attempts}/10)`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;} else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusDiv.textContent = <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`📉 Jackpot is SMALLER than ${guess} (${attempts}/10)`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;if (attempts >= 10 && gameActive) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;statusDiv.innerHTML = <br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`💔 Game Over!<br/>The number was ${jackpot}<br/>Try again!`;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gameActive = false;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    }</code>
+                </div>
+            </div>
+
+            <div class="success-box">
+                <strong style="color: #155724;">✅ Game Logic Summary:</strong>
+                <ul class="step-list">
+                    <li>Generate random number between 1-100</li>
+                    <li>User gets 10 attempts to guess</li>
+                    <li>After each wrong guess, give hint (higher/lower)</li>
+                    <li>If correct guess → Win and break</li>
+                    <li>If 10 attempts used → Game Over</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ==================== OPERATORS ==================== -->
+        <div class="section">
+            <h2>8️⃣ OPERATORS</h2>
+            
+            <h3>Comparison Operators (return TRUE or FALSE)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operator</th>
+                        <th>Meaning</th>
+                        <th>Example</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="operator-symbol">==</span></td>
+                        <td>Equal to</td>
+                        <td>5 == 5</td>
+                        <td>✅ TRUE</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">===</span></td>
+                        <td>Strictly equal</td>
+                        <td>5 === '5'</td>
+                        <td>❌ FALSE</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">!=</span></td>
+                        <td>Not equal</td>
+                        <td>5 != 3</td>
+                        <td>✅ TRUE</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">></span></td>
+                        <td>Greater than</td>
+                        <td>5 > 3</td>
+                        <td>✅ TRUE</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol"><</span></td>
+                        <td>Less than</td>
+                        <td>5 < 10</td>
+                        <td>✅ TRUE</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">>=</span></td>
+                        <td>Greater or equal</td>
+                        <td>5 >= 5</td>
+                        <td>✅ TRUE</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol"><=</span></td>
+                        <td>Less or equal</td>
+                        <td>5 <= 10</td>
+                        <td>✅ TRUE</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Logical Operators (combine conditions)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operator</th>
+                        <th>Meaning</th>
+                        <th>Example</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="operator-symbol">&&</span></td>
+                        <td>AND (both TRUE)</td>
+                        <td>(5 > 3) && (5 < 10)</td>
+                        <td>✅ TRUE</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">||</span></td>
+                        <td>OR (at least one TRUE)</td>
+                        <td>(5 > 10) || (5 < 10)</td>
+                        <td>✅ TRUE</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Mathematical Operators</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Operator</th>
+                        <th>Meaning</th>
+                        <th>Example</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="operator-symbol">+</span></td>
+                        <td>Addition</td>
+                        <td>5 + 3</td>
+                        <td>8</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">-</span></td>
+                        <td>Subtraction</td>
+                        <td>5 - 3</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">*</span></td>
+                        <td>Multiplication</td>
+                        <td>5 * 3</td>
+                        <td>15</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">/</span></td>
+                        <td>Division</td>
+                        <td>10 / 2</td>
+                        <td>5</td>
+                    </tr>
+                    <tr>
+                        <td><span class="operator-symbol">%</span></td>
+                        <td>Modulo (remainder)</td>
+                        <td>10 % 3</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ==================== SPECIAL CONCEPTS ==================== -->
+        <div class="section">
+            <h2>9️⃣ SPECIAL CONCEPTS</h2>
+            
+            <h3>Modulo Operator (%)</h3>
+            <p>Used to find <span class="highlight">remainder</span>. <span class="highlight">Used for even/odd check!</span></p>
+            
+            <div class="code-block">
+                <code>5 % 2 = 1  (5 ÷ 2 = 2 remainder 1) → ODD<br/>
+                6 % 2 = 0  (6 ÷ 2 = 3 remainder 0) → EVEN<br/>
+                10 % 3 = 1 (10 ÷ 3 = 3 remainder 1)</code>
+            </div>
+
+            <div class="example-box">
+                <strong>💡 Why use % for even/odd?</strong><br/>
+                Even numbers divided by 2 have remainder 0<br/>
+                Odd numbers divided by 2 have remainder 1
+            </div>
+
+            <h3>Random Number Generation</h3>
+            <div class="code-block">
+                <code>Math.floor(Math.random() * 100) + 1<br/>
+                // Generates random integer from 1 to 100<br/>
+                <br/>
+                Math.random()        // 0 to 1 (like 0.456)<br/>
+                * 100                // 0 to 100 (like 45.6)<br/>
+                Math.floor()         // Round down (45)<br/>
+                + 1                  // Add 1 (46)</code>
+            </div>
+
+            <h3>Prompt & Alert</h3>
+            <div class="code-block">
+                <code>guess = prompt('Enter number');    // Get input from user<br/>
+                alert('You won!');                  // Show message to user</code>
+            </div>
+        </div>
+
+        <!-- ==================== SUMMARY ==================== -->
+        <div class="section">
+            <h2>📋 SUMMARY TABLE</h2>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Purpose</th>
+                        <th>When to Use</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Function</strong></td>
+                        <td>Reusable code block</td>
+                        <td>When you need same code multiple times</td>
+                    </tr>
+                    <tr>
+                        <td><strong>if-else</strong></td>
+                        <td>Make decisions</td>
+                        <td>When you need different outputs based on conditions</td>
+                    </tr>
+                    <tr>
+                        <td><strong>for loop</strong></td>
+                        <td>Repeat code</td>
+                        <td>When you need to do something multiple times</td>
+                    </tr>
+                    <tr>
+                        <td><strong>break</strong></td>
+                        <td>Stop loop early</td>
+                        <td>When you want to exit loop before condition becomes false</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Operators</strong></td>
+                        <td>Compare/Calculate</td>
+                        <td>In conditions and calculations</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ==================== QUICK REFERENCE ==================== -->
+        <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <h2 style="color: white; border-bottom-color: white;">🎯 Quick Reference Card</h2>
+            
+            <div class="grid-2">
+                <div class="comparison-card" style="background: rgba(255,255,255,0.1); border-left-color: white;">
+                    <h3 style="color: white; margin-top: 0;">For Loop Template</h3>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3); color: #fff; border-left-color: white;">
+                        <code>for (let i = 1; i <= 10; i++) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// do something<br/>
+                        }</code>
+                    </div>
+                </div>
+
+                <div class="comparison-card" style="background: rgba(255,255,255,0.1); border-left-color: white;">
+                    <h3 style="color: white; margin-top: 0;">If-Else Template</h3>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3); color: #fff; border-left-color: white;">
+                        <code>if (condition) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// if TRUE<br/>
+                        } else {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// if FALSE<br/>
+                        }</code>
+                    </div>
+                </div>
+
+                <div class="comparison-card" style="background: rgba(255,255,255,0.1); border-left-color: white;">
+                    <h3 style="color: white; margin-top: 0;">Function Template</h3>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3); color: #fff; border-left-color: white;">
+                        <code>function myFunction() {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// code here<br/>
+                        }<br/>
+                        myFunction();  // call it</code>
+                    </div>
+                </div>
+
+                <div class="comparison-card" style="background: rgba(255,255,255,0.1); border-left-color: white;">
+                    <h3 style="color: white; margin-top: 0;">Operators Cheat Sheet</h3>
+                    <div class="code-block" style="background: rgba(0,0,0,0.3); color: #fff; border-left-color: white;">
+                        <code>== (equal)<br/>
+                        > < >= <= (compare)<br/>
+                        && (AND) || (OR)<br/>
+                        % (remainder)</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabbuttons;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            tabbuttons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabbuttons.length; i++) {
+                tabbuttons[i].classList.remove("active");
+            }
+            
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // ==================== INTERACTIVE FUNCTIONS ====================
+        function checkEvenOdd() {
+            let num = Number(document.getElementById('evenOddInput').value);
+            let resultDiv = document.getElementById('evenOddResult');
+
+            if (num > 0) {
+                if (num % 2 == 0) {
+                    resultDiv.textContent = `✓ ${num} is an even number`;
+                } else {
+                    resultDiv.textContent = `✓ ${num} is an odd number`;
+                }
+            } else {
+                resultDiv.textContent = `⚠️ Please enter a positive number`;
+            }
+        }
+
+        function findGreatest() {
+            let n1 = 200;
+            let n2 = 300;
+            let n3 = 40;
+            let greatest;
+
+            if (n1 > n2 && n1 > n3) {
+                greatest = n1;
+            } else if (n2 > n1 && n2 > n3) {
+                greatest = n2;
+            } else {
+                greatest = n3;
+            }
+
+            let resultDiv = document.getElementById('greatestResult');
+            resultDiv.textContent = `✓ The greatest number is ${greatest}`;
+        }
+
+        function showMultiplicationTable() {
+            let output = '';
+            let x = 3;
+            for (let i = 1; i < 11; i++) {
+                output += `<div class="console-log">${x} × ${i} = ${x * i}</div>`;
+            }
+            document.getElementById('multiplicationOutput').innerHTML = output;
+        }
+
+        function showFloorNumbers() {
+            let output = '';
+            for (let i = 1; i <= 20; i++) {
+                if (i == 13) {
+                    output += `<div class="console-log" style="color: #ff6b6b;">Floor No. ${i} (BREAK HERE)</div>`;
+                    break;
+                }
+                output += `<div class="console-log">Floor No. ${i}</div>`;
+            }
+            document.getElementById('floorOutput').innerHTML = output;
+        }
+
+        // ==================== JACKPOT GAME ====================
+        let jackpot = 0;
+        let attempts = 0;
+        let gameActive = false;
+
+        function startNewGame() {
+            jackpot = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            gameActive = true;
+            document.getElementById('guessInput').value = '';
+            document.getElementById('gameStatus').textContent = '🎲 New game started! You have 10 attempts. Guess the number (1-100)!';
+        }
+
+        function makeGuess() {
+            if (!gameActive) {
+                document.getElementById('gameStatus').textContent = '⚠️ Start a new game first!';
+                return;
+            }
+
+            let guess = Number(document.getElementById('guessInput').value);
+            
+            if (!guess || guess < 1 || guess > 100) {
+                document.getElementById('gameStatus').textContent = '⚠️ Please enter a valid number between 1 and 100!';
+                return;
+            }
+
+            attempts++;
+
+            if (jackpot == guess) {
+                document.getElementById('gameStatus').innerHTML = `🎉 <strong>You WON!</strong><br/>The number was ${jackpot}. You guessed it in ${attempts} attempt(s)!`;
+                gameActive = false;
+                document.getElementById('guessInput').value = '';
+            } else if (jackpot > guess) {
+                document.getElementById('gameStatus').textContent = `📈 The jackpot is GREATER than ${guess} (Attempt ${attempts}/10)`;
+            } else {
+                document.getElementById('gameStatus').textContent = `📉 The jackpot is SMALLER than ${guess} (Attempt ${attempts}/10)`;
+            }
+
+            if (attempts >= 10 && gameActive) {
+                document.getElementById('gameStatus').innerHTML = `💔 <strong>Game Over!</strong><br/>You've used all 10 attempts. The number was ${jackpot}. Try again!`;
+                gameActive = false;
+                document.getElementById('guessInput').value = '';
+            }
+        }
+
+        // Allow Enter key to make guess
+        document.getElementById('guessInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                makeGuess();
+            }
+        });
+
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: true, theme: 'base', logLevel: 'error' });
+        mermaid.contentLoaded();
+    </script>
+</body>
+</html>
