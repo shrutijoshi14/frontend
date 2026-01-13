@@ -1,0 +1,1632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES6 JavaScript - Complete Guide</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+
+        header h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header p {
+            font-size: 1.2em;
+            color: #666;
+        }
+
+        .nav-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+        }
+
+        .tab-button {
+            padding: 15px 30px;
+            background: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            color: #667eea;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .tab-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            background: #667eea;
+            color: white;
+        }
+
+        .tab-button.active {
+            background: #667eea;
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .tab-content {
+            display: none;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 25px 0 15px 0;
+            font-size: 1.5em;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .example-box {
+            background: #f0f7ff;
+            border-left: 5px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .real-world-example {
+            background: #fff4e6;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .real-world-example h4 {
+            color: #ff9800;
+            margin-bottom: 10px;
+        }
+
+        .troubleshoot-box {
+            background: #ffe6e6;
+            border-left: 5px solid #e74c3c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .troubleshoot-box h4 {
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .interactive-demo {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        button.demo-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+        }
+
+        button.demo-btn:hover {
+            background: #764ba2;
+            transform: scale(1.05);
+        }
+
+        .output-box {
+            background: #2d2d2d;
+            color: #4caf50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            min-height: 60px;
+            font-family: 'Courier New', monospace;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        table th {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            text-align: left;
+        }
+
+        table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table tr:hover {
+            background: #f5f5f5;
+        }
+
+        table img {
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .mermaid {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .key-points {
+            background: #e3f2fd;
+            border-left: 5px solid #2196f3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .key-points ul {
+            margin-left: 20px;
+        }
+
+        .key-points li {
+            margin: 10px 0;
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            margin: 5px;
+            font-size: 1em;
+        }
+
+        .comparison-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .comparison-card h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .comparison-table {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 ES6 JavaScript Complete Guide</h1>
+            <p>Master Modern JavaScript with Interactive Examples & Real-World Applications</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-button active" onclick="openTab('intro')">Introduction</button>
+            <button class="tab-button" onclick="openTab('arrow')">Arrow Functions</button>
+            <button class="tab-button" onclick="openTab('foreach')">forEach</button>
+            <button class="tab-button" onclick="openTab('map')">Map</button>
+            <button class="tab-button" onclick="openTab('filter')">Filter</button>
+            <button class="tab-button" onclick="openTab('reduce')">Reduce</button>
+            <button class="tab-button" onclick="openTab('fetch')">Fetch API</button>
+            <button class="tab-button" onclick="openTab('axios')">Axios</button>
+            <button class="tab-button" onclick="openTab('demo')">Live Demo</button>
+        </div>
+
+        <!-- Introduction Tab -->
+        <div id="intro" class="tab-content active">
+            <h2>📚 Introduction to ES6 (ECMAScript 2015)</h2>
+            
+            <p style="font-size: 1.1em; margin: 20px 0;">ES6, also known as ECMAScript 2015, introduced revolutionary features that transformed JavaScript development. It made code more readable, maintainable, and powerful.</p>
+
+            <div class="mermaid">
+                graph TD
+                    A[ES6 Features] --> B[Arrow Functions]
+                    A --> C[Array Methods]
+                    A --> D[Async Operations]
+                    C --> E[forEach]
+                    C --> F[map]
+                    C --> G[filter]
+                    C --> H[reduce]
+                    D --> I[Fetch API]
+                    D --> J[Axios]
+            </div>
+
+            <h3>Why ES6 Matters?</h3>
+            <div class="key-points">
+                <ul>
+                    <li><strong>Cleaner Syntax:</strong> Write less code to do more</li>
+                    <li><strong>Better Performance:</strong> Optimized execution</li>
+                    <li><strong>Functional Programming:</strong> Powerful array methods</li>
+                    <li><strong>Async/Await Support:</strong> Handle asynchronous operations elegantly</li>
+                    <li><strong>Modern API Integration:</strong> Fetch and Axios for HTTP requests</li>
+                </ul>
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Impact</h4>
+                <p>Companies like Netflix, Uber, and Airbnb use ES6 features extensively. For example:</p>
+                <ul>
+                    <li><strong>Netflix:</strong> Uses map/filter to process millions of movie recommendations</li>
+                    <li><strong>Uber:</strong> Uses Fetch API to get real-time driver locations</li>
+                    <li><strong>Instagram:</strong> Uses arrow functions for event handlers in their React app</li>
+                </ul>
+            </div>
+
+            <div class="mermaid">
+                sequenceDiagram
+                    participant User
+                    participant Browser
+                    participant API
+                    User->>Browser: Click Button
+                    Browser->>API: Fetch Data (ES6)
+                    API-->>Browser: Return JSON
+                    Browser->>Browser: Process with map/filter
+                    Browser-->>User: Display Results
+            </div>
+        </div>
+
+        <!-- Arrow Functions Tab -->
+        <div id="arrow" class="tab-content">
+            <h2>➡️ Arrow Functions</h2>
+            
+            <p>Arrow functions provide a shorter syntax for writing functions and handle the 'this' keyword differently.</p>
+
+            <h3>Traditional vs Arrow Function</h3>
+            <div class="comparison-table">
+                <div class="comparison-card">
+                    <h4>Traditional Function</h4>
+                    <div class="code-block">
+function sum(a, b) {
+    return a + b;
+}
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h4>Arrow Function</h4>
+                    <div class="code-block">
+const sum = (a, b) => a + b;
+                    </div>
+                </div>
+            </div>
+
+            <div class="mermaid">
+                graph LR
+                    A[Function Input] --> B{Arrow Function}
+                    B --> C[Parameters]
+                    C --> D[Arrow =>]
+                    D --> E[Expression/Block]
+                    E --> F[Return Value]
+            </div>
+
+            <h3>Syntax Variations</h3>
+            <div class="code-block">
+// No parameters
+const greet = () => "Hello!";
+
+// One parameter (parentheses optional)
+const square = x => x * x;
+
+// Multiple parameters
+const add = (a, b) => a + b;
+
+// Multi-line function body
+const calculate = (a, b) => {
+    const sum = a + b;
+    return sum * 2;
+};
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Example: E-Commerce</h4>
+                <p><strong>Scenario:</strong> Calculate total price with discount in an online store</p>
+                <div class="code-block">
+// Traditional approach
+function calculateTotal(price, discount) {
+    var discountAmount = price * (discount / 100);
+    return price - discountAmount;
+}
+
+// Modern ES6 approach
+const calculateTotal = (price, discount) => {
+    const discountAmount = price * (discount / 100);
+    return price - discountAmount;
+};
+
+// Even shorter
+const calculateTotal = (price, discount) => 
+    price - (price * discount / 100);
+
+console.log(calculateTotal(100, 20)); // $80
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo</h3>
+                <input type="number" id="arrowNum1" placeholder="Enter first number" value="5">
+                <input type="number" id="arrowNum2" placeholder="Enter second number" value="3">
+                <br>
+                <button class="demo-btn" onclick="demonstrateArrow()">Calculate Sum</button>
+                <button class="demo-btn" onclick="demonstrateArrowMultiply()">Calculate Product</button>
+                <div class="output-box" id="arrowOutput">Output will appear here...</div>
+            </div>
+
+            <div class="troubleshoot-box">
+                <h4>⚠️ Common Mistakes</h4>
+                <ul>
+                    <li><strong>Forgetting return:</strong> Multi-line arrow functions need explicit return</li>
+                    <li><strong>Wrong 'this' binding:</strong> Arrow functions don't have their own 'this'</li>
+                    <li><strong>Object literal confusion:</strong> Use () when returning objects: () => ({ key: value })</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- forEach Tab -->
+        <div id="foreach" class="tab-content">
+            <h2>🔄 forEach Method</h2>
+            
+            <p>The forEach method executes a provided function once for each array element. It's perfect for iteration when you don't need to return a new array.</p>
+
+            <div class="mermaid">
+                graph LR
+                    A[Original Array] --> B[forEach]
+                    B --> C[Execute Function]
+                    C --> D[Element 1]
+                    C --> E[Element 2]
+                    C --> F[Element 3]
+                    D --> G[Side Effect]
+                    E --> G
+                    F --> G
+            </div>
+
+            <h3>Syntax</h3>
+            <div class="code-block">
+array.forEach((element, index, array) => {
+    // Your code here
+});
+
+// Parameters:
+// element - current item
+// index - current position (optional)
+// array - the array itself (optional)
+            </div>
+
+            <h3>Basic Example</h3>
+            <div class="code-block">
+const fruits = ['apple', 'banana', 'orange'];
+
+// Print each fruit
+fruits.forEach(fruit => {
+    console.log(fruit);
+});
+
+// With index
+fruits.forEach((fruit, index) => {
+    console.log(`${index + 1}. ${fruit}`);
+});
+
+// Output:
+// 1. apple
+// 2. banana
+// 3. orange
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Example: Email System</h4>
+                <p><strong>Scenario:</strong> Send welcome emails to new users</p>
+                <div class="code-block">
+const newUsers = [
+    { name: 'Alice', email: 'alice@example.com' },
+    { name: 'Bob', email: 'bob@example.com' },
+    { name: 'Charlie', email: 'charlie@example.com' }
+];
+
+// Send email to each user
+newUsers.forEach(user => {
+    sendWelcomeEmail(user.email, user.name);
+    console.log(`Welcome email sent to ${user.name}`);
+});
+
+// Mock function
+function sendWelcomeEmail(email, name) {
+    // Email sending logic here
+    return true;
+}
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo</h3>
+                <button class="demo-btn" onclick="demonstrateForEach()">Show Names</button>
+                <button class="demo-btn" onclick="demonstrateForEachSum()">Calculate Total Salary</button>
+                <div class="output-box" id="forEachOutput">Output will appear here...</div>
+            </div>
+
+            <div class="key-points">
+                <h4>Key Characteristics:</h4>
+                <ul>
+                    <li>Always returns undefined</li>
+                    <li>Cannot break out of the loop</li>
+                    <li>Best for side effects (logging, updating DOM, etc.)</li>
+                    <li>Cleaner than traditional for loops</li>
+                </ul>
+            </div>
+
+            <div class="mermaid">
+                flowchart TD
+                    A[Start forEach] --> B{More Elements?}
+                    B -->|Yes| C[Get Next Element]
+                    C --> D[Execute Callback]
+                    D --> E[Perform Action]
+                    E --> B
+                    B -->|No| F[End - Return undefined]
+            </div>
+        </div>
+
+        <!-- Map Tab -->
+        <div id="map" class="tab-content">
+            <h2>🗺️ Map Method</h2>
+            
+            <p>The map method creates a NEW array by transforming each element of the original array. It's perfect for data transformation.</p>
+
+            <div class="mermaid">
+                graph LR
+                    A[Original Array<br/>[1, 2, 3]] --> B[map Function]
+                    B --> C[Transform Each]
+                    C --> D[New Array<br/>[2, 4, 6]]
+                    style D fill:#90EE90
+            </div>
+
+            <h3>Syntax</h3>
+            <div class="code-block">
+const newArray = array.map((element, index, array) => {
+    // Transform and return new value
+    return transformedValue;
+});
+            </div>
+
+            <h3>Basic Examples</h3>
+            <div class="code-block">
+const numbers = [1, 2, 3, 4, 5];
+
+// Square each number
+const squares = numbers.map(num => num * num);
+console.log(squares); // [1, 4, 9, 16, 25]
+
+// Double each number
+const doubled = numbers.map(num => num * 2);
+console.log(doubled); // [2, 4, 6, 8, 10]
+
+// Convert to strings
+const strings = numbers.map(num => `Number ${num}`);
+console.log(strings); // ['Number 1', 'Number 2', ...]
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Example: E-Commerce Product Display</h4>
+                <p><strong>Scenario:</strong> Transform product data for display on website</p>
+                <div class="code-block">
+const products = [
+    { id: 1, name: 'Laptop', price: 999 },
+    { id: 2, name: 'Mouse', price: 29 },
+    { id: 3, name: 'Keyboard', price: 79 }
+];
+
+// Add discount and format for display
+const displayProducts = products.map(product => ({
+    ...product,
+    discountedPrice: product.price * 0.9,
+    displayName: product.name.toUpperCase(),
+    priceLabel: `$${product.price.toFixed(2)}`
+}));
+
+// Result:
+// [
+//   { id: 1, name: 'Laptop', price: 999,
+//     discountedPrice: 899.1, displayName: 'LAPTOP',
+//     priceLabel: '$999.00' },
+//   ...
+// ]
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo</h3>
+                <button class="demo-btn" onclick="demonstrateMap()">Square Numbers</button>
+                <button class="demo-btn" onclick="demonstrateMapNames()">Extract Names</button>
+                <button class="demo-btn" onclick="demonstrateMapPrices()">Calculate Prices</button>
+                <div class="output-box" id="mapOutput">Output will appear here...</div>
+            </div>
+
+            <div class="comparison-table">
+                <div class="comparison-card">
+                    <h4>Without Map (Traditional)</h4>
+                    <div class="code-block">
+const nums = [1, 2, 3];
+const squared = [];
+for (let i = 0; i < nums.length; i++) {
+    squared.push(nums[i] * nums[i]);
+}
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h4>With Map (ES6)</h4>
+                    <div class="code-block">
+const nums = [1, 2, 3];
+const squared = nums.map(n => n * n);
+                    </div>
+                </div>
+            </div>
+
+            <div class="mermaid">
+                flowchart TD
+                    A[Input Array] --> B[map]
+                    B --> C{For Each Element}
+                    C --> D[Apply Transformation]
+                    D --> E[Store in New Array]
+                    E --> C
+                    C --> F[Return New Array]
+                    style F fill:#90EE90
+            </div>
+
+            <div class="troubleshoot-box">
+                <h4>⚠️ Common Mistakes</h4>
+                <ul>
+                    <li><strong>Forgetting to return:</strong> Must return a value in the callback</li>
+                    <li><strong>Not using the result:</strong> map returns a new array, original is unchanged</li>
+                    <li><strong>Using map for side effects:</strong> Use forEach instead</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Filter Tab -->
+        <div id="filter" class="tab-content">
+            <h2>🔍 Filter Method</h2>
+            
+            <p>The filter method creates a NEW array with all elements that pass a test (condition). It's perfect for extracting specific items.</p>
+
+            <div class="mermaid">
+                graph LR
+                    A[Original Array<br/>[1,2,3,4,5,6]] --> B{Filter Condition<br/>num > 3}
+                    B -->|Pass| C[New Array<br/>[4,5,6]]
+                    B -->|Fail| D[Excluded<br/>[1,2,3]]
+                    style C fill:#90EE90
+                    style D fill:#FFB6C6
+            </div>
+
+            <h3>Syntax</h3>
+            <div class="code-block">
+const newArray = array.filter((element, index, array) => {
+    // Return true to keep element, false to exclude
+    return condition;
+});
+            </div>
+
+            <h3>Basic Examples</h3>
+            <div class="code-block">
+const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+
+// Get even numbers
+const evens = numbers.filter(num => num % 2 === 0);
+console.log(evens); // [2, 4, 6, 8, 10]
+
+// Get numbers greater than 5
+const greaterThan5 = numbers.filter(num => num > 5);
+console.log(greaterThan5); // [6, 7, 8, 9, 10]
+
+// Get odd numbers
+const odds = numbers.filter(num => num % 2 !== 0);
+console.log(odds); // [1, 3, 5, 7, 9]
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Example: Job Application System</h4>
+                <p><strong>Scenario:</strong> Filter qualified candidates based on experience</p>
+                <div class="code-block">
+const candidates = [
+    { name: 'Alice', experience: 5, skills: ['JavaScript', 'React'] },
+    { name: 'Bob', experience: 2, skills: ['HTML', 'CSS'] },
+    { name: 'Charlie', experience: 7, skills: ['Node.js', 'MongoDB'] },
+    { name: 'Diana', experience: 3, skills: ['Python', 'Django'] }
+];
+
+// Filter candidates with 3+ years experience
+const qualified = candidates.filter(candidate => 
+    candidate.experience >= 3
+);
+
+// Filter candidates who know JavaScript
+const jsDevs = candidates.filter(candidate => 
+    candidate.skills.includes('JavaScript')
+);
+
+// Multiple conditions
+const seniorJsDevs = candidates.filter(candidate => 
+    candidate.experience >= 5 && 
+    candidate.skills.includes('JavaScript')
+);
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo</h3>
+                <input type="number" id="filterAge" placeholder="Min age" value="22">
+                <button class="demo-btn" onclick="demonstrateFilter()">Filter by Age</button>
+                <button class="demo-btn" onclick="demonstrateFilterSalary()">High Salary (>25k)</button>
+                <button class="demo-btn" onclick="demonstrateFilterEven()">Filter Even Numbers</button>
+                <div class="output-box" id="filterOutput">Output will appear here...</div>
+            </div>
+
+            <div class="mermaid">
+                flowchart TD
+                    A[Start with Array] --> B{For Each Element}
+                    B --> C{Test Condition}
+                    C -->|True| D[Add to New Array]
+                    C -->|False| E[Skip Element]
+                    D --> B
+                    E --> B
+                    B --> F[Return Filtered Array]
+                    style D fill:#90EE90
+                    style E fill:#FFB6C6
+            </div>
+
+            <h3>Chaining filter with other methods</h3>
+            <div class="code-block">
+const users = [
+    { name: 'Alice', age: 25, salary: 50000 },
+    { name: 'Bob', age: 30, salary: 60000 },
+    { name: 'Charlie', age: 35, salary: 75000 }
+];
+
+// Filter then map - get names of users over 28
+const names = users
+    .filter(user => user.age > 28)
+    .map(user => user.name);
+console.log(names); // ['Bob', 'Charlie']
+
+// Filter then reduce - total salary of young employees
+const totalSalary = users
+    .filter(user => user.age < 30)
+    .reduce((sum, user) => sum + user.salary, 0);
+console.log(totalSalary); // 50000
+            </div>
+
+            <div class="key-points">
+                <h4>Key Characteristics:</h4>
+                <ul>
+                    <li>Returns a new array (doesn't modify original)</li>
+                    <li>New array can be smaller or same size (never larger)</li>
+                    <li>If no elements pass, returns empty array []</li>
+                    <li>Perfect for search and filtering operations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Reduce Tab -->
+        <div id="reduce" class="tab-content">
+            <h2>⚙️ Reduce Method</h2>
+            
+            <p>The reduce method executes a reducer function on each element, resulting in a single output value. It's the most powerful array method!</p>
+
+            <div class="mermaid">
+                graph LR
+                    A[Array: [1,2,3,4]] --> B[Reduce]
+                    B --> C[Accumulator: 0]
+                    C --> D[+1 = 1]
+                    D --> E[+2 = 3]
+                    E --> F[+3 = 6]
+                    F --> G[+4 = 10]
+                    G --> H[Result: 10]
+                    style H fill:#90EE90
+            </div>
+
+            <h3>Syntax</h3>
+            <div class="code-block">
+const result = array.reduce((accumulator, currentValue, index, array) => {
+    // Return updated accumulator
+    return accumulator + currentValue;
+}, initialValue);
+
+// Parameters:
+// accumulator - accumulated value (running total)
+// currentValue - current element
+// initialValue - starting value (optional)
+            </div>
+
+            <h3>Basic Examples</h3>
+            <div class="code-block">
+const numbers = [1, 2, 3, 4, 5];
+
+// Sum all numbers
+const sum = numbers.reduce((total, num) => total + num, 0);
+console.log(sum); // 15
+
+// Find maximum
+const max = numbers.reduce((max, num) => num > max ? num : max, numbers[0]);
+console.log(max); // 5
+
+// Calculate average
+const avg = numbers.reduce((sum, num) => sum + num, 0) / numbers.length;
+console.log(avg); // 3
+
+// Product of all numbers
+const product = numbers.reduce((prod, num) => prod * num, 1);
+console.log(product); // 120
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Example: Shopping Cart</h4>
+                <p><strong>Scenario:</strong> Calculate total price and apply discounts</p>
+                <div class="code-block">
+const cart = [
+    { item: 'Laptop', price: 999, quantity: 1 },
+    { item: 'Mouse', price: 29, quantity: 2 },
+    { item: 'Keyboard', price: 79, quantity: 1 }
+];
+
+// Calculate total
+const total = cart.reduce((sum, item) => {
+    return sum + (item.price * item.quantity);
+}, 0);
+console.log(total); // $1136
+
+// Group items by price range
+const grouped = cart.reduce((groups, item) => {
+    const key = item.price > 100 ? 'expensive' : 'affordable';
+    if (!groups[key]) groups[key] = [];
+    groups[key].push(item);
+    return groups;
+}, {});
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo</h3>
+                <button class="demo-btn" onclick="demonstrateReduce()">Sum Numbers</button>
+                <button class="demo-btn" onclick="demonstrateReduceAvg()">Calculate Average</button>
+                <button class="demo-btn" onclick="demonstrateReduceSalary()">Total Salary</button>
+                <div class="output-box" id="reduceOutput">Output will appear here...</div>
+            </div>
+
+            <div class="mermaid">
+                flowchart TD
+                    A[Start: Initial Value] --> B[Element 1]
+                    B --> C[Accumulator + Element 1]
+                    C --> D[Element 2]
+                    D --> E[Result + Element 2]
+                    E --> F[Element 3]
+                    F --> G[Continue...]
+                    G --> H[Final Result]
+                    style H fill:#90EE90
+            </div>
+
+            <h3>Advanced Reduce Examples</h3>
+            <div class="code-block">
+const users = [
+    { name: 'Tom', age: 20, salary: 23000 },
+    { name: 'Anam', age: 22, salary: 30000 },
+    { name: 'Ankush', age: 21, salary: 25000 }
+];
+
+// Count users by age
+const ageCount = users.reduce((count, user) => {
+    count[user.age] = (count[user.age] || 0) + 1;
+    return count;
+}, {});
+
+// Find employee with highest salary
+const highest = users.reduce((max, user) => 
+    user.salary > max.salary ? user : max
+);
+
+// Create lookup object
+const userLookup = users.reduce((lookup, user) => {
+    lookup[user.name] = user;
+    return lookup;
+}, {});
+            </div>
+
+            <div class="troubleshoot-box">
+                <h4>⚠️ Common Mistakes</h4>
+                <ul>
+                    <li><strong>Forgetting initial value:</strong> Always provide it for clarity</li>
+                    <li><strong>Not returning accumulator:</strong> Must return updated value</li>
+                    <li><strong>Mutating accumulator:</strong> Be careful with objects/arrays</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Fetch API Tab -->
+        <div id="fetch" class="tab-content">
+            <h2>🌐 Fetch API</h2>
+            
+            <p>The Fetch API provides a modern, promise-based way to make HTTP requests. It's built into modern browsers!</p>
+
+            <div class="mermaid">
+                sequenceDiagram
+                    participant Browser
+                    participant FetchAPI
+                    participant Server
+                    Browser->>FetchAPI: fetch(url)
+                    FetchAPI->>Server: HTTP Request
+                    Server-->>FetchAPI: Response
+                    FetchAPI->>FetchAPI: response.json()
+                    FetchAPI-->>Browser: JavaScript Object
+            </div>
+
+            <h3>Basic Syntax</h3>
+            <div class="code-block">
+fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+            </div>
+
+            <h3>Complete Example</h3>
+            <div class="code-block">
+// GET Request
+fetch('https://api.github.com/users')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Users:', data);
+        // Process the data
+        data.forEach(user => {
+            console.log(`${user.login}: ${user.id}`);
+        });
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+    });
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Example: Weather App</h4>
+                <p><strong>Scenario:</strong> Fetch weather data for a city</p>
+                <div class="code-block">
+async function getWeather(city) {
+    try {
+        const response = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY`
+        );
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        return {
+            temperature: data.main.temp,
+            description: data.weather[0].description,
+            humidity: data.main.humidity
+        };
+    } catch (error) {
+        console.error('Weather fetch failed:', error);
+        return null;
+    }
+}
+
+// Usage
+getWeather('London').then(weather => {
+    console.log(`Temperature: ${weather.temperature}°C`);
+    console.log(`Conditions: ${weather.description}`);
+});
+                </div>
+            </div>
+
+            <div class="mermaid">
+                flowchart TD
+                    A[Start Fetch Request] --> B[Send HTTP Request]
+                    B --> C{Response OK?}
+                    C -->|Yes| D[Parse JSON]
+                    C -->|No| E[Throw Error]
+                    D --> F[Process Data]
+                    F --> G[Update UI]
+                    E --> H[Handle Error]
+                    H --> I[Show Error Message]
+                    style G fill:#90EE90
+                    style I fill:#FFB6C6
+            </div>
+
+            <h3>POST Request Example</h3>
+            <div class="code-block">
+// Sending data to server
+const userData = {
+    name: 'John Doe',
+    email: 'john@example.com'
+};
+
+fetch('https://api.example.com/users', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData)
+})
+.then(response => response.json())
+.then(data => {
+    console.log('Success:', data);
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+            </div>
+
+            <div class="key-points">
+                <h4>Fetch API Features:</h4>
+                <ul>
+                    <li>Promise-based (supports async/await)</li>
+                    <li>Built into modern browsers</li>
+                    <li>Supports all HTTP methods (GET, POST, PUT, DELETE)</li>
+                    <li>Better error handling than older XMLHttpRequest</li>
+                    <li>Automatic JSON parsing with response.json()</li>
+                </ul>
+            </div>
+
+            <div class="troubleshoot-box">
+                <h4>⚠️ Common Issues</h4>
+                <ul>
+                    <li><strong>CORS Errors:</strong> Server must allow cross-origin requests</li>
+                    <li><strong>Forgetting .json():</strong> Response needs to be parsed</li>
+                    <li><strong>Not handling errors:</strong> Always use .catch() or try/catch</li>
+                    <li><strong>Network failures:</strong> Fetch only rejects on network failure, not HTTP errors</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Axios Tab -->
+        <div id="axios" class="tab-content">
+            <h2>📡 Axios Library</h2>
+            
+            <p>Axios is a popular HTTP client library that provides a simpler, more powerful API than Fetch. It automatically transforms JSON data!</p>
+
+            <div class="mermaid">
+                graph LR
+                    A[Your Code] --> B[Axios]
+                    B --> C[Automatic JSON Parsing]
+                    B --> D[Better Error Handling]
+                    B --> E[Request/Response Interceptors]
+                    B --> F[Timeout Support]
+                    C --> G[Cleaner Code]
+                    D --> G
+                    E --> G
+                    F --> G
+            </div>
+
+            <h3>Installation</h3>
+            <div class="code-block">
+<!-- In HTML -->
+&lt;script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"&gt;&lt;/script&gt;
+
+// In Node.js
+npm install axios
+            </div>
+
+            <h3>Basic Usage</h3>
+            <div class="code-block">
+// GET Request - Super simple!
+axios.get('https://api.github.com/users')
+    .then(response => {
+        console.log(response.data); // Already parsed!
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+
+// With async/await
+async function getUsers() {
+    try {
+        const response = await axios.get('https://api.github.com/users');
+        console.log(response.data);
+    } catch (error) {
+        console.error('Error:', error.message);
+    }
+}
+            </div>
+
+            <div class="comparison-table">
+                <div class="comparison-card">
+                    <h4>Fetch API</h4>
+                    <div class="code-block">
+fetch(url)
+  .then(r => r.json())
+  .then(data => {
+    console.log(data);
+  })
+  .catch(e => {
+    console.log(e);
+  });
+                    </div>
+                </div>
+                <div class="comparison-card">
+                    <h4>Axios</h4>
+                    <div class="code-block">
+axios.get(url)
+  .then(r => {
+    console.log(r.data);
+  })
+  .catch(e => {
+    console.log(e);
+  });
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Example: Social Media App</h4>
+                <p><strong>Scenario:</strong> Fetch user posts with comments</p>
+                <div class="code-block">
+// Concurrent requests
+async function getUserDashboard(userId) {
+    try {
+        // Fetch multiple endpoints simultaneously
+        const [userInfo, posts, notifications] = await Promise.all([
+            axios.get(`/api/users/${userId}`),
+            axios.get(`/api/users/${userId}/posts`),
+            axios.get(`/api/users/${userId}/notifications`)
+        ]);
+        
+        return {
+            user: userInfo.data,
+            posts: posts.data,
+            notifications: notifications.data
+        };
+    } catch (error) {
+        console.error('Dashboard load failed:', error);
+        throw error;
+    }
+}
+
+// POST with authentication
+async function createPost(postData) {
+    try {
+        const response = await axios.post('/api/posts', postData, {
+            headers: {
+                'Authorization': `Bearer ${getToken()}`,
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        return response.data;
+    } catch (error) {
+        if (error.response.status === 401) {
+            // Handle unauthorized
+            redirectToLogin();
+        }
+        throw error;
+    }
+}
+                </div>
+            </div>
+
+            <h3>Advanced Features</h3>
+            <div class="code-block">
+// Request with config
+axios({
+    method: 'post',
+    url: '/api/users',
+    data: {
+        name: 'John',
+        email: 'john@example.com'
+    },
+    timeout: 5000, // 5 seconds
+    headers: {
+        'Authorization': 'Bearer token123'
+    }
+});
+
+// Interceptors - Execute code before request
+axios.interceptors.request.use(config => {
+    config.headers.Authorization = `Bearer ${getToken()}`;
+    console.log('Request sent at:', new Date());
+    return config;
+});
+
+// Interceptors - Handle response globally
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response.status === 401) {
+            // Redirect to login
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
+            </div>
+
+            <div class="mermaid">
+                sequenceDiagram
+                    participant App
+                    participant Axios
+                    participant Interceptor
+                    participant Server
+                    App->>Axios: axios.get(url)
+                    Axios->>Interceptor: Request Interceptor
+                    Interceptor->>Server: Modified Request
+                    Server-->>Interceptor: Response
+                    Interceptor->>Axios: Response Interceptor
+                    Axios-->>App: Final Data
+            </div>
+
+            <div class="key-points">
+                <h4>Why Use Axios?</h4>
+                <ul>
+                    <li><strong>Automatic JSON:</strong> No need for .json()</li>
+                    <li><strong>Better Errors:</strong> Rejects on HTTP errors</li>
+                    <li><strong>Interceptors:</strong> Modify requests/responses globally</li>
+                    <li><strong>Timeout Support:</strong> Built-in request timeout</li>
+                    <li><strong>Progress Tracking:</strong> Monitor upload/download progress</li>
+                    <li><strong>Cancel Requests:</strong> Abort pending requests</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Live Demo Tab -->
+        <div id="demo" class="tab-content">
+            <h2>🎮 Live GitHub Users Demo</h2>
+            
+            <p>This is a working demonstration that fetches real data from GitHub API and displays it in a table!</p>
+
+            <div class="interactive-demo">
+                <button class="demo-btn" onclick="loadGithubUsers()">🚀 Load GitHub Users (Axios)</button>
+                <button class="demo-btn" onclick="loadGithubUsersFetch()">🌐 Load Users (Fetch API)</button>
+                <button class="demo-btn" onclick="clearTable()">🗑️ Clear Table</button>
+            </div>
+
+            <div style="overflow-x: auto; margin-top: 20px;">
+                <table id="usersTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Avatar</th>
+                            <th>Profile</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 30px;">
+                                Click a button above to load GitHub users!
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="mermaid">
+                flowchart TD
+                    A[User Clicks Button] --> B[Call API Function]
+                    B --> C{Which Method?}
+                    C -->|Axios| D[axios.get]
+                    C -->|Fetch| E[fetch + .json]
+                    D --> F[Receive Data]
+                    E --> F
+                    F --> G[Process with forEach]
+                    G --> H[Generate HTML]
+                    H --> I[Update Table]
+                    style I fill:#90EE90
+            </div>
+
+            <h3>Code Behind This Demo</h3>
+            <div class="code-block">
+// Axios Version
+function loadGithubUsers() {
+    axios.get("https://api.github.com/users")
+        .then(response => {
+            let output = '';
+            response.data.forEach(user => {
+                output += `&lt;tr&gt;
+                    &lt;td&gt;${user.id}&lt;/td&gt;
+                    &lt;td&gt;${user.login}&lt;/td&gt;
+                    &lt;td&gt;&lt;img src="${user.avatar_url}" width="100" height="100"&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;a href="${user.html_url}" target="_blank"&gt;View Profile&lt;/a&gt;&lt;/td&gt;
+                &lt;/tr&gt;`;
+            });
+            document.getElementById("tbody").innerHTML = output;
+        })
+        .catch(error => {
+            console.error('Error loading users:', error);
+        });
+}
+
+// Fetch API Version
+function loadGithubUsersFetch() {
+    fetch("https://api.github.com/users")
+        .then(response => response.json())
+        .then(data => {
+            let output = '';
+            data.forEach(user => {
+                output += `&lt;tr&gt;
+                    &lt;td&gt;${user.id}&lt;/td&gt;
+                    &lt;td&gt;${user.login}&lt;/td&gt;
+                    &lt;td&gt;&lt;img src="${user.avatar_url}" width="100" height="100"&gt;&lt;/td&gt;
+                    &lt;td&gt;&lt;a href="${user.html_url}" target="_blank"&gt;View Profile&lt;/a&gt;&lt;/td&gt;
+                &lt;/tr&gt;`;
+            });
+            document.getElementById("tbody").innerHTML = output;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
+            </div>
+
+            <div class="example-box">
+                <h4>What's Happening?</h4>
+                <ol>
+                    <li><strong>API Call:</strong> We request data from GitHub's public API</li>
+                    <li><strong>Data Parsing:</strong> Axios automatically parses JSON; Fetch needs .json()</li>
+                    <li><strong>Array Iteration:</strong> forEach loops through each user</li>
+                    <li><strong>HTML Generation:</strong> Template literals create table rows</li>
+                    <li><strong>DOM Update:</strong> innerHTML updates the table body</li>
+                </ol>
+            </div>
+
+            <div class="real-world-example">
+                <h4>🌍 Real-World Applications</h4>
+                <p>This same pattern is used for:</p>
+                <ul>
+                    <li><strong>E-commerce:</strong> Display products from database</li>
+                    <li><strong>Social Media:</strong> Load posts and comments</li>
+                    <li><strong>Dashboard:</strong> Show analytics and metrics</li>
+                    <li><strong>Search Results:</strong> Display filtered data</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <p><strong>Created with ❤️ for Learning ES6 JavaScript</strong></p>
+            <p>Practice these concepts daily to become a JavaScript expert!</p>
+            <p style="margin-top: 10px;">📚 Remember: The best way to learn is by doing. Try modifying the examples above!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+
+        // Tab Navigation
+        function openTab(tabName) {
+            const contents = document.getElementsByClassName('tab-content');
+            const buttons = document.getElementsByClassName('tab-button');
+            
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove('active');
+            }
+            
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].classList.remove('active');
+            }
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        // Arrow Function Demos
+        function demonstrateArrow() {
+            const num1 = parseFloat(document.getElementById('arrowNum1').value) || 0;
+            const num2 = parseFloat(document.getElementById('arrowNum2').value) || 0;
+            const sum = (a, b) => a + b;
+            document.getElementById('arrowOutput').innerHTML = 
+                `Arrow Function: (a, b) => a + b<br>Result: ${num1} + ${num2} = ${sum(num1, num2)}`;
+        }
+
+        function demonstrateArrowMultiply() {
+            const num1 = parseFloat(document.getElementById('arrowNum1').value) || 0;
+            const num2 = parseFloat(document.getElementById('arrowNum2').value) || 0;
+            const multiply = (a, b) => a * b;
+            document.getElementById('arrowOutput').innerHTML = 
+                `Arrow Function: (a, b) => a * b<br>Result: ${num1} × ${num2} = ${multiply(num1, num2)}`;
+        }
+
+        // forEach Demos
+        function demonstrateForEach() {
+            const users = [
+                { name: 'Tom', age: 20, salary: 23000 },
+                { name: 'Anam', age: 22, salary: 30000 },
+                { name: 'Ankush', age: 21, salary: 25000 }
+            ];
+            
+            let output = 'Users List:<br>';
+            users.forEach((user, index) => {
+                output += `${index + 1}. ${user.name} (Age: ${user.age})<br>`;
+            });
+            
+            document.getElementById('forEachOutput').innerHTML = output;
+        }
+
+        function demonstrateForEachSum() {
+            const users = [
+                { name: 'Tom', age: 20, salary: 23000 },
+                { name: 'Anam', age: 22, salary: 30000 },
+                { name: 'Ankush', age: 21, salary: 25000 }
+            ];
+            
+            let total = 0;
+            users.forEach(user => {
+                total += user.salary;
+            });
+            
+            const avg = total / users.length;
+            document.getElementById('forEachOutput').innerHTML = 
+                `Total Salary: ${total.toLocaleString()}<br>Average Salary: ${avg.toLocaleString()}`;
+        }
+
+        // Map Demos
+        function demonstrateMap() {
+            const numbers = [1, 2, 3, 4, 5];
+            const squared = numbers.map(num => num * num);
+            
+            document.getElementById('mapOutput').innerHTML = 
+                `Original: [${numbers.join(', ')}]<br>Squared: [${squared.join(', ')}]<br>Using: numbers.map(num => num * num)`;
+        }
+
+        function demonstrateMapNames() {
+            const users = [
+                { name: 'Tom', age: 20 },
+                { name: 'Anam', age: 22 },
+                { name: 'Ankush', age: 21 }
+            ];
+            
+            const names = users.map(user => user.name);
+            document.getElementById('mapOutput').innerHTML = 
+                `Extracted Names: [${names.join(', ')}]<br>Using: users.map(user => user.name)`;
+        }
+
+        function demonstrateMapPrices() {
+            const products = [
+                { name: 'Laptop', price: 999 },
+                { name: 'Mouse', price: 29 },
+                { name: 'Keyboard', price: 79 }
+            ];
+            
+            const discounted = products.map(p => ({
+                ...p,
+                discountedPrice: (p.price * 0.9).toFixed(2)
+            }));
+            
+            let output = 'Products with 10% Discount:<br>';
+            discounted.forEach(p => {
+                output += `${p.name}: ${p.price} → ${p.discountedPrice}<br>`;
+            });
+            
+            document.getElementById('mapOutput').innerHTML = output;
+        }
+
+        // Filter Demos
+        function demonstrateFilter() {
+            const minAge = parseInt(document.getElementById('filterAge').value) || 0;
+            const users = [
+                { name: 'Tom', age: 20, salary: 23000 },
+                { name: 'Anam', age: 22, salary: 30000 },
+                { name: 'Ankush', age: 21, salary: 25000 }
+            ];
+            
+            const filtered = users.filter(user => user.age >= minAge);
+            
+            let output = `Users with age >= ${minAge}:<br>`;
+            filtered.forEach(user => {
+                output += `${user.name}: ${user.age} years old<br>`;
+            });
+            
+            if (filtered.length === 0) {
+                output += 'No users found!';
+            }
+            
+            document.getElementById('filterOutput').innerHTML = output;
+        }
+
+        function demonstrateFilterSalary() {
+            const users = [
+                { name: 'Tom', age: 20, salary: 23000 },
+                { name: 'Anam', age: 22, salary: 30000 },
+                { name: 'Ankush', age: 21, salary: 25000 }
+            ];
+            
+            const highEarners = users.filter(user => user.salary > 25000);
+            
+            let output = 'High Earners (>$25,000):<br>';
+            highEarners.forEach(user => {
+                output += `${user.name}: ${user.salary.toLocaleString()}<br>`;
+            });
+            
+            document.getElementById('filterOutput').innerHTML = output;
+        }
+
+        function demonstrateFilterEven() {
+            const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            const evens = numbers.filter(num => num % 2 === 0);
+            
+            document.getElementById('filterOutput').innerHTML = 
+                `Original: [${numbers.join(', ')}]<br>Even Numbers: [${evens.join(', ')}]<br>Using: numbers.filter(num => num % 2 === 0)`;
+        }
+
+        // Reduce Demos
+        function demonstrateReduce() {
+            const numbers = [2, 4, 5, 3, 10, 12];
+            const sum = numbers.reduce((total, num) => total + num, 0);
+            
+            document.getElementById('reduceOutput').innerHTML = 
+                `Numbers: [${numbers.join(', ')}]<br>Sum: ${sum}<br>Using: numbers.reduce((total, num) => total + num, 0)`;
+        }
+
+        function demonstrateReduceAvg() {
+            const numbers = [2, 4, 5, 3, 10, 12];
+            const avg = numbers.reduce((sum, num) => sum + num, 0) / numbers.length;
+            
+            document.getElementById('reduceOutput').innerHTML = 
+                `Numbers: [${numbers.join(', ')}]<br>Average: ${avg.toFixed(2)}<br>Calculation: Sum / Length`;
+        }
+
+        function demonstrateReduceSalary() {
+            const users = [
+                { name: 'Tom', age: 20, salary: 23000 },
+                { name: 'Anam', age: 22, salary: 30000 },
+                { name: 'Ankush', age: 21, salary: 25000 }
+            ];
+            
+            const total = users.reduce((sum, user) => sum + user.salary, 0);
+            const avg = total / users.length;
+            
+            document.getElementById('reduceOutput').innerHTML = 
+                `Total Payroll: ${total.toLocaleString()}<br>Average Salary: ${avg.toLocaleString()}<br>Using reduce to sum salaries`;
+        }
+
+        // GitHub API Demos
+        function loadGithubUsers() {
+            document.getElementById('tbody').innerHTML = '<tr><td colspan="4" style="text-align:center">Loading...</td></tr>';
+            
+            axios.get("https://api.github.com/users")
+                .then(response => {
+                    let output = '';
+                    response.data.forEach(user => {
+                        output += `<tr>
+                            <td>${user.id}</td>
+                            <td><strong>${user.login}</strong></td>
+                            <td><img src="${user.avatar_url}" width="100" height="100" alt="${user.login}"></td>
+                            <td><a href="${user.html_url}" target="_blank" style="color: #667eea; text-decoration: none;">View Profile →</a></td>
+                        </tr>`;
+                    });
+                    document.getElementById("tbody").innerHTML = output;
+                })
+                .catch(error => {
+                    console.error('Error loading users:', error);
+                    document.getElementById('tbody').innerHTML = '<tr><td colspan="4" style="text-align:center; color: red;">Error loading users!</td></tr>';
+                });
+        }
+
+        function loadGithubUsersFetch() {
+            document.getElementById('tbody').innerHTML = '<tr><td colspan="4" style="text-align:center">Loading...</td></tr>';
+            
+            fetch("https://api.github.com/users")
+                .then(response => response.json())
+                .then(data => {
+                    let output = '';
+                    data.forEach(user => {
+                        output += `<tr>
+                            <td>${user.id}</td>
+                            <td><strong>${user.login}</strong></td>
+                            <td><img src="${user.avatar_url}" width="100" height="100" alt="${user.login}"></td>
+                            <td><a href="${user.html_url}" target="_blank" style="color: #667eea; text-decoration: none;">View Profile →</a></td>
+                        </tr>`;
+                    });
+                    document.getElementById("tbody").innerHTML = output;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('tbody').innerHTML = '<tr><td colspan="4" style="text-align:center; color: red;">Error loading users!</td></tr>';
+                });
+        }
+
+        function clearTable() {
+            document.getElementById('tbody').innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 30px;">Click a button above to load GitHub users!</td></tr>';
+        }
+    </script>
+</body>
+</html>

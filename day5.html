@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Learning Hub</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .tab-btn {
+            padding: 12px 24px;
+            border: none;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+        }
+
+        .tab-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.4);
+        }
+
+        .content-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            color: #667eea;
+            margin: 25px 0 15px 0;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            color: #764ba2;
+            margin: 20px 0 10px 0;
+            font-size: 1.5em;
+        }
+
+        .concept-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #667eea;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .real-world-example {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #ff9a56;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .interactive-demo {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .demo-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            margin: 10px 5px;
+            transition: transform 0.2s;
+        }
+
+        .demo-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .output-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            min-height: 50px;
+            border: 2px solid #667eea;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+
+        .diagram-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tip-box {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #fdcb6e;
+        }
+
+        .error-box {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .image-placeholder {
+            background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+            padding: 40px;
+            text-align: center;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 18px;
+            color: #666;
+            border: 3px dashed #667eea;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .api-result {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .github-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            background: white;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .github-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+        }
+
+        .exercise-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        @media (max-width: 768px) {
+            .nav-tabs {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 1.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 JavaScript Learning Hub</h1>
+            <p class="subtitle">Master Arrays, JSON, Objects, DOM Manipulation & API Integration</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="tab-btn active" onclick="showTab('arrays')">📊 Arrays</button>
+            <button class="tab-btn" onclick="showTab('json')">📦 JSON & Objects</button>
+            <button class="tab-btn" onclick="showTab('loops')">🔄 Loops & Iteration</button>
+            <button class="tab-btn" onclick="showTab('dom')">🎨 DOM Manipulation</button>
+            <button class="tab-btn" onclick="showTab('api')">🌐 API & Fetch</button>
+            <button class="tab-btn" onclick="showTab('exercises')">💪 Practice Exercises</button>
+        </div>
+
+        <!-- Arrays Section -->
+        <div id="arrays" class="content-section active">
+            <h2>📊 Understanding Arrays in JavaScript</h2>
+
+            <div class="concept-card">
+                <h3>What is an Array?</h3>
+                <p>An array is like a <span class="highlight">storage box with numbered compartments</span>. Each compartment (index) holds one item, and you can access items by their position number (starting from 0).</p>
+            </div>
+
+            <div class="real-world-example">
+                <h3>🌍 Real-World Example: Library Bookshelf</h3>
+                <p><strong>Imagine a bookshelf:</strong></p>
+                <ul style="margin-left: 20px; margin-top: 10px;">
+                    <li>Shelf Position 0: "Harry Potter"</li>
+                    <li>Shelf Position 1: "Lord of the Rings"</li>
+                    <li>Shelf Position 2: "The Hobbit"</li>
+                    <li>Shelf Position 3: "1984"</li>
+                </ul>
+                <p style="margin-top: 10px;">To get the second book, you go to position 1 (not 2, because counting starts at 0!)</p>
+            </div>
+
+            <div class="diagram-container">
+                <h3>Array Structure Diagram</h3>
+                <div class="mermaid">
+graph LR
+    A[Array: books] --> B[Index 0: Harry Potter]
+    A --> C[Index 1: LOTR]
+    A --> D[Index 2: The Hobbit]
+    A --> E[Index 3: 1984]
+    style A fill:#667eea,color:#fff
+    style B fill:#a8edea
+    style C fill:#a8edea
+    style D fill:#a8edea
+    style E fill:#a8edea
+                </div>
+            </div>
+
+            <h3>📝 Array Basics</h3>
+            <div class="code-block">// Creating an array
+let numbers = [5, 6, 7, 8, 9, 17];
+
+// Accessing elements
+console.log(numbers[0]);  // Output: 5 (first element)
+console.log(numbers[5]);  // Output: 17 (last element)
+
+// Array length
+console.log(numbers.length);  // Output: 6</div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: Array Explorer</h3>
+                <p>Enter numbers separated by commas:</p>
+                <input type="text" id="arrayInput" class="demo-input" placeholder="e.g., 10, 20, 30, 40, 50" value="5, 6, 7, 8, 9, 17">
+                <button class="demo-btn" onclick="exploreArray()">Explore Array</button>
+                <div id="arrayOutput" class="output-box"></div>
+            </div>
+
+            <h3>🔍 Finding Maximum Value in Array</h3>
+            <div class="diagram-container">
+                <div class="mermaid">
+flowchart TD
+    A[Start] --> B[Set max = 0]
+    B --> C[Take first element]
+    C --> D{Is element > max?}
+    D -->|Yes| E[Update max = element]
+    D -->|No| F[Skip]
+    E --> G{More elements?}
+    F --> G
+    G -->|Yes| C
+    G -->|No| H[Print max]
+    H --> I[End]
+    style A fill:#667eea,color:#fff
+    style I fill:#667eea,color:#fff
+    style E fill:#ffeaa7
+                </div>
+            </div>
+
+            <div class="code-block">// Finding maximum value
+let nums = [2, 4, 5, 3];
+let max = 0;
+
+for (let x of nums) {
+    if (x > max) {
+        max = x;
+    }
+}
+
+console.log(`Maximum is ${max}`);  // Output: Maximum is 5</div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: Find Max/Min</h3>
+                <input type="text" id="maxMinInput" class="demo-input" placeholder="Enter numbers: 10, 45, 23, 78, 12" value="2, 4, 5, 3">
+                <button class="demo-btn" onclick="findMax()">Find Maximum</button>
+                <button class="demo-btn" onclick="findMin()">Find Minimum</button>
+                <div id="maxMinOutput" class="output-box"></div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong> Always initialize your max variable properly. If you're looking for the maximum in an array of negative numbers and initialize max = 0, you'll get incorrect results!
+            </div>
+        </div>
+
+        <!-- JSON Section -->
+        <div id="json" class="content-section">
+            <h2>📦 JSON & JavaScript Objects</h2>
+
+            <div class="concept-card">
+                <h3>What is JSON?</h3>
+                <p><span class="highlight">JSON (JavaScript Object Notation)</span> is a way to structure data using key-value pairs. Think of it as a labeled filing system where each piece of information has a name (key) and a value.</p>
+            </div>
+
+            <div class="real-world-example">
+                <h3>🌍 Real-World Example: Student ID Card</h3>
+                <div class="image-placeholder">
+                    📇 Student ID Card<br><br>
+                    <strong>Name:</strong> Ajay Nagar<br>
+                    <strong>Age:</strong> 23<br>
+                    <strong>City:</strong> Pune<br>
+                    <strong>State:</strong> Maharashtra<br>
+                    <strong>Hobbies:</strong> Cricket, Tennis, Football
+                </div>
+                <p>This ID card is like a JSON object - each piece of information has a label (key) and a value!</p>
+            </div>
+
+            <h3>📝 JSON Object Structure</h3>
+            <div class="code-block">// Simple JSON Object
+let student = {
+    "name": "Ajay Nagar",
+    "age": 23,
+    "address": {
+        "city": "Pune",
+        "state": "Maharashtra"
+    },
+    "hobbies": ["cricket", "tennis", "football"]
+};
+
+// Accessing values - Two ways
+console.log(student["name"]);        // Output: Ajay Nagar
+console.log(student.name);           // Output: Ajay Nagar (dot notation)
+
+// Accessing nested values
+console.log(student.address.city);   // Output: Pune
+console.log(student.hobbies[2]);     // Output: football</div>
+
+            <div class="diagram-container">
+                <h3>JSON Object Structure</h3>
+                <div class="mermaid">
+graph TD
+    A[student Object] --> B[name: Ajay Nagar]
+    A --> C[age: 23]
+    A --> D[address Object]
+    A --> E[hobbies Array]
+    D --> F[city: Pune]
+    D --> G[state: Maharashtra]
+    E --> H[0: cricket]
+    E --> I[1: tennis]
+    E --> J[2: football]
+    style A fill:#667eea,color:#fff
+    style D fill:#764ba2,color:#fff
+    style E fill:#764ba2,color:#fff
+                </div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: JSON Explorer</h3>
+                <p>Explore the student object:</p>
+                <button class="demo-btn" onclick="showName()">Show Name</button>
+                <button class="demo-btn" onclick="showCity()">Show City</button>
+                <button class="demo-btn" onclick="showHobbies()">Show Hobbies</button>
+                <button class="demo-btn" onclick="showAllJSON()">Show All Data</button>
+                <div id="jsonOutput" class="output-box"></div>
+            </div>
+
+            <h3>👥 Array of JSON Objects</h3>
+            <div class="real-world-example">
+                <h3>🌍 Real-World Example: Company Employee Database</h3>
+                <p>Imagine a company's employee records system where each employee has a name and salary. This is perfect for an array of JSON objects!</p>
+            </div>
+
+            <div class="code-block">// Array of employee records
+let records = [
+    { "name": "Anam", "salary": 23000 },
+    { "name": "Anil", "salary": 25000 },
+    { "name": "Ankush", "salary": 22000 },
+    { "name": "Priyanka", "salary": 21000 },
+    { "name": "Shailesh", "salary": 23000 }
+];
+
+// Finding highest salary
+let maxSalary = 0;
+for (let employee of records) {
+    if (employee.salary > maxSalary) {
+        maxSalary = employee.salary;
+    }
+}
+
+// Finding employees with highest salary
+for (let employee of records) {
+    if (employee.salary === maxSalary) {
+        console.log(employee.name);
+    }
+}</div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: Employee Salary Manager</h3>
+                <table id="employeeTable">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Salary (₹)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeBody"></tbody>
+                </table>
+                <button class="demo-btn" onclick="findHighestSalary()">Find Highest Salary</button>
+                <button class="demo-btn" onclick="calculateTotalSalary()">Calculate Total Salary</button>
+                <button class="demo-btn" onclick="findLowestSalary()">Find Lowest Salary</button>
+                <button class="demo-btn" onclick="find2ndHighest()">Find 2nd Highest</button>
+                <div id="salaryOutput" class="output-box"></div>
+            </div>
+        </div>
+
+        <!-- Loops Section -->
+        <div id="loops" class="content-section">
+            <h2>🔄 Loops & Iteration</h2>
+
+            <div class="concept-card">
+                <h3>What are Loops?</h3>
+                <p>Loops allow you to <span class="highlight">repeat a task multiple times</span> without writing the same code over and over. It's like telling someone "do this 10 times" instead of writing the instruction 10 times!</p>
+            </div>
+
+            <div class="real-world-example">
+                <h3>🌍 Real-World Example: Morning Routine</h3>
+                <p><strong>Without Loop:</strong></p>
+                <p>Knock on door 1<br>Knock on door 2<br>Knock on door 3<br>...(and so on)</p>
+                <p style="margin-top: 10px;"><strong>With Loop:</strong></p>
+                <p>Repeat 10 times: Knock on door</p>
+                <p style="margin-top: 10px;">Much simpler, right? That's the power of loops!</p>
+            </div>
+
+            <h3>📝 Types of Loops</h3>
+
+            <div class="diagram-container">
+                <h3>Loop Flow Diagram</h3>
+                <div class="mermaid">
+flowchart TD
+    A[Start Loop] --> B{Condition True?}
+    B -->|Yes| C[Execute Code Block]
+    C --> D[Update Counter]
+    D --> B
+    B -->|No| E[Exit Loop]
+    style A fill:#667eea,color:#fff
+    style E fill:#667eea,color:#fff
+    style C fill:#a8edea
+                </div>
+            </div>
+
+            <h3>1️⃣ For Loop (Index-based)</h3>
+            <div class="code-block">let arr = [5, 6, 7, 8, 9, 17];
+
+// Loop through array with index
+for (let i = 0; i < arr.length; i++) {
+    console.log(`arr[${i}] = ${arr[i]}`);
+}
+
+// Output:
+// arr[0] = 5
+// arr[1] = 6
+// arr[2] = 7
+// (and so on...)</div>
+
+            <h3>2️⃣ For...of Loop (Value-based)</h3>
+            <div class="code-block">let arr = [5, 6, 7, 8, 9, 17];
+
+// Loop through array values directly
+for (let value of arr) {
+    console.log(`Square of ${value} is ${value * value}`);
+}
+
+// Output:
+// Square of 5 is 25
+// Square of 6 is 36
+// (and so on...)</div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: Loop Visualizer</h3>
+                <p>Enter numbers to see different loop types in action:</p>
+                <input type="text" id="loopInput" class="demo-input" placeholder="e.g., 2, 4, 6, 8" value="5, 6, 7, 8">
+                <button class="demo-btn" onclick="demoIndexLoop()">Index Loop</button>
+                <button class="demo-btn" onclick="demoValueLoop()">Value Loop</button>
+                <button class="demo-btn" onclick="demoSquares()">Calculate Squares</button>
+                <div id="loopOutput" class="output-box"></div>
+            </div>
+
+            <h3>📊 Common Loop Operations</h3>
+
+            <div class="concept-card">
+                <h3><span class="step-number">1</span>Sum of Array Elements</h3>
+                <div class="code-block">let arr = [2, 4, 5, 3];
+let sum = 0;
+
+for (let x of arr) {
+    sum = sum + x;
+}
+
+console.log(sum);  // Output: 14</div>
+            </div>
+
+            <div class="concept-card">
+                <h3><span class="step-number">2</span>Average of Array Elements</h3>
+                <div class="code-block">let arr = [2, 4, 5, 3];
+let sum = 0;
+
+for (let x of arr) {
+    sum = sum + x;
+}
+
+let avg = sum / arr.length;
+console.log(`Average is ${avg}`);  // Output: Average is 3.5</div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: Array Calculator</h3>
+                <input type="text" id="calcInput" class="demo-input" placeholder="Enter numbers: 10, 20, 30, 40" value="2, 4, 5, 3">
+                <button class="demo-btn" onclick="calcSum()">Calculate Sum</button>
+                <button class="demo-btn" onclick="calcAverage()">Calculate Average</button>
+                <button class="demo-btn" onclick="calcProduct()">Calculate Product</button>
+                <div id="calcOutput" class="output-box"></div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 When to use which loop?</strong><br>
+                • Use <code>for (let i = 0...)</code> when you need the index position<br>
+                • Use <code>for (let x of array)</code> when you only need the values<br>
+                • For...of loops are cleaner and easier to read!
+            </div>
+        </div>
+
+        <!-- DOM Section -->
+        <div id="dom" class="content-section">
+            <h2>🎨 DOM Manipulation</h2>
+
+            <div class="concept-card">
+                <h3>What is the DOM?</h3>
+                <p>The <span class="highlight">DOM (Document Object Model)</span> is like a bridge between JavaScript and your HTML page. It allows JavaScript to read, change, and interact with HTML elements on your webpage.</p>
+            </div>
+
+            <div class="real-world-example">
+                <h3>🌍 Real-World Example: Remote Control</h3>
+                <div class="image-placeholder">
+                    📺 TV Screen = Your Webpage<br>
+                    🎮 Remote Control = JavaScript DOM Methods<br><br>
+                    Just like a remote control lets you change channels, adjust volume, and turn the TV on/off,<br>
+                    DOM methods let you change text, styles, and content on your webpage!
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <h3>DOM Interaction Flow</h3>
+                <div class="mermaid">
+flowchart LR
+    A[HTML Element<br/>id=myButton] --> B[JavaScript]
+    B --> C[document.getElementById]
+    C --> D[Get/Modify Element]
+    D --> E[Update Display]
+    E --> F[User Sees Changes]
+    style A fill:#667eea,color:#fff
+    style D fill:#ffeaa7
+    style F fill:#a8edea
+                </div>
+            </div>
+
+            <h3>📝 Essential DOM Methods</h3>
+
+            <div class="concept-card">
+                <h3><span class="step-number">1</span>Getting Elements</h3>
+                <div class="code-block">// Get element by ID
+let element = document.getElementById("myElement");
+
+// Get the value from an input field
+let inputValue = document.getElementById("myInput").value;</div>
+            </div>
+
+            <div class="concept-card">
+                <h3><span class="step-number">2</span>Changing Content</h3>
+                <div class="code-block">// Change HTML content
+document.getElementById("result").innerHTML = "Hello World!";
+
+// Change text content
+document.getElementById("result").textContent = "Hello World!";</div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: Text Manipulator</h3>
+                <input type="text" id="domInput" class="demo-input" placeholder="Type something..." value="Hello DOM!">
+                <button class="demo-btn" onclick="changeText()">Change Text</button>
+                <button class="demo-btn" onclick="makeUpper()">Uppercase</button>
+                <button class="demo-btn" onclick="makeLower()">Lowercase</button>
+                <button class="demo-btn" onclick="reverseText()">Reverse</button>
+                <div id="domOutput" class="output-box" style="font-size: 24px; font-weight: bold; color: #667eea;">Original Text</div>
+            </div>
+
+            <h3>🧮 Building Interactive Calculator</h3>
+            <div class="code-block">// HTML
+&lt;input type="text" id="num" value="7"&gt;
+&lt;button onclick="getSquare()"&gt;Get Square&lt;/button&gt;
+&lt;h1 id="result"&gt;&lt;/h1&gt;
+
+// JavaScript
+function getSquare() {
+    let num = document.getElementById("num").value;
+    let square = num * num;
+    let output = `Square of ${num} is ${square}`;
+    document.getElementById("result").innerHTML = output;
+}</div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: Number Calculator</h3>
+                <input type="number" id="calcNumber" class="demo-input" placeholder="Enter a number" value="7">
+                <button class="demo-btn" onclick="getDOMSquare()">Square</button>
+                <button class="demo-btn" onclick="getCube()">Cube</button>
+                <button class="demo-btn" onclick="getDouble()">Double</button>
+                <button class="demo-btn" onclick="getTable()">Multiplication Table</button>
+                <div id="numberOutput" class="output-box"></div>
+            </div>
+        </div>
+
+        <!-- API Section -->
+        <div id="api" class="content-section">
+            <h2>🌐 API & Fetch - Getting Data from the Internet</h2>
+
+            <div class="concept-card">
+                <h3>What is an API?</h3>
+                <p>An <span class="highlight">API (Application Programming Interface)</span> is like a waiter in a restaurant. You (the customer) tell the waiter what you want, the waiter goes to the kitchen (server), and brings back your food (data)!</p>
+            </div>
+
+            <div class="real-world-example">
+                <h3>🌍 Real-World Example: Restaurant Ordering System</h3>
+                <div class="image-placeholder">
+                    👤 You (Website) ➡️ 🍽️ Waiter (API) ➡️ 👨‍🍳 Kitchen (Server)<br><br>
+                    You don't need to know how to cook.<br>
+                    You just ask the waiter, and they bring you the food!<br><br>
+                    Similarly, you don't need to know where data is stored.<br>
+                    You just ask the API, and it brings you the data!
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <h3>API Request Flow</h3>
+                <div class="mermaid">
+flowchart LR
+    A[Your Website] -->|1. Request Data| B[API Server]
+    B -->|2. Process Request| C[Database]
+    C -->|3. Get Data| B
+    B -->|4. Send Response| A
+    A -->|5. Display Data| D[User Sees Data]
+    style A fill:#667eea,color:#fff
+    style B fill:#ffeaa7
+    style D fill:#a8edea
+                </div>
+            </div>
+
+            <h3>📝 Using Fetch API</h3>
+            <div class="code-block">// Basic fetch syntax
+fetch("https://api.github.com/users")
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // Use the data here
+    })
+    .catch(error => {
+        console.error("Error:", error);
+    });</div>
+
+            <div class="concept-card">
+                <h3>Understanding the Fetch Process</h3>
+                <p><span class="step-number">1</span> <strong>fetch(url)</strong> - Send request to the server</p>
+                <p><span class="step-number">2</span> <strong>.then(response => response.json())</strong> - Convert response to usable format</p>
+                <p><span class="step-number">3</span> <strong>.then(data => {...})</strong> - Use the data in your code</p>
+                <p><span class="step-number">4</span> <strong>.catch(error => {...})</strong> - Handle any errors</p>
+            </div>
+
+            <h3>🎯 Real Example: GitHub Users API</h3>
+            <div class="code-block">fetch("https://api.github.com/users")
+    .then(response => response.json())
+    .then(data => {
+        let output = '';
+        
+        for (let user of data) {
+            output += `
+                &lt;tr&gt;
+                    &lt;td&gt;${user.id}&lt;/td&gt;
+                    &lt;td&gt;${user.login}&lt;/td&gt;
+                    &lt;td&gt;&lt;img src="${user.avatar_url}" width="100"&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            `;
+        }
+        
+        document.getElementById("tbody").innerHTML = output;
+    });</div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Interactive Demo: GitHub Users Fetcher</h3>
+                <button class="demo-btn" onclick="fetchGitHubUsers()">Load GitHub Users</button>
+                <button class="demo-btn" onclick="clearAPIData()">Clear Data</button>
+                <div id="apiOutput" class="output-box api-result"></div>
+            </div>
+
+            <div class="interactive-demo">
+                <h3>🎮 Try Different APIs</h3>
+                <button class="demo-btn" onclick="fetchRandomUser()">Random User API</button>
+                <button class="demo-btn" onclick="fetchJoke()">Random Joke API</button>
+                <button class="demo-btn" onclick="fetchDogImage()">Random Dog Image</button>
+                <div id="apiDemo2" class="output-box"></div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Common API Response Formats:</strong><br>
+                • <strong>JSON:</strong> Most common format (objects and arrays)<br>
+                • <strong>Status Codes:</strong> 200 = Success, 404 = Not Found, 500 = Server Error<br>
+                • <strong>Always use .catch():</strong> To handle network errors gracefully
+            </div>
+
+            <div class="error-box">
+                <strong>⚠️ Common Mistakes:</strong><br>
+                • Forgetting to convert response with .json()<br>
+                • Not handling errors with .catch()<br>
+                • Trying to use data outside the .then() block<br>
+                • Forgetting that fetch is asynchronous (takes time)
+            </div>
+        </div>
+
+        <!-- Exercises Section -->
+        <div id="exercises" class="content-section">
+            <h2>💪 Practice Exercises</h2>
+
+            <div class="concept-card">
+                <h3>Ready to Test Your Skills?</h3>
+                <p>Try these exercises to practice what you've learned. Each exercise has a solution button if you get stuck!</p>
+            </div>
+
+            <div class="exercise-item">
+                <h3>Exercise 1: Find Minimum Element</h3>
+                <p>Write code to find the minimum element in an array: [15, 8, 23, 4, 16, 42]</p>
+                <input type="text" id="ex1Input" class="demo-input" placeholder="Enter array: 15, 8, 23, 4, 16, 42" value="15, 8, 23, 4, 16, 42">
+                <button class="demo-btn" onclick="solveEx1()">Solve</button>
+                <button class="demo-btn" onclick="showEx1Solution()">Show Solution</button>
+                <div id="ex1Output" class="output-box"></div>
+            </div>
+
+            <div class="exercise-item">
+                <h3>Exercise 2: Calculate Average Salary</h3>
+                <p>Calculate the average salary of all employees in the company database.</p>
+                <button class="demo-btn" onclick="solveEx2()">Calculate Average</button>
+                <button class="demo-btn" onclick="showEx2Solution()">Show Solution</button>
+                <div id="ex2Output" class="output-box"></div>
+            </div>
+
+            <div class="exercise-item">
+                <h3>Exercise 3: Find 2nd Highest Salary</h3>
+                <p>Find the employee with the 2nd highest salary and display their name.</p>
+                <button class="demo-btn" onclick="solveEx3()">Find 2nd Highest</button>
+                <button class="demo-btn" onclick="showEx3Solution()">Show Solution</button>
+                <div id="ex3Output" class="output-box"></div>
+            </div>
+
+            <div class="exercise-item">
+                <h3>Exercise 4: Array Sum Calculator</h3>
+                <p>Create a calculator that sums all elements in an array.</p>
+                <input type="text" id="ex4Input" class="demo-input" placeholder="Enter numbers: 5, 10, 15, 20" value="5, 10, 15, 20">
+                <button class="demo-btn" onclick="solveEx4()">Calculate Sum</button>
+                <button class="demo-btn" onclick="showEx4Solution()">Show Solution</button>
+                <div id="ex4Output" class="output-box"></div>
+            </div>
+
+            <div class="exercise-item">
+                <h3>Exercise 5: Multiplication Table Generator</h3>
+                <p>Generate a multiplication table for any number (1 to 10).</p>
+                <input type="number" id="ex5Input" class="demo-input" placeholder="Enter a number" value="5">
+                <button class="demo-btn" onclick="solveEx5()">Generate Table</button>
+                <button class="demo-btn" onclick="showEx5Solution()">Show Solution</button>
+                <div id="ex5Output" class="output-box"></div>
+            </div>
+
+            <div class="exercise-item">
+                <h3>Exercise 6: Count Elements Greater Than Average</h3>
+                <p>Find how many elements in an array are greater than the average of all elements.</p>
+                <input type="text" id="ex6Input" class="demo-input" placeholder="Enter numbers: 10, 20, 30, 40, 50" value="10, 20, 30, 40, 50">
+                <button class="demo-btn" onclick="solveEx6()">Solve</button>
+                <button class="demo-btn" onclick="showEx6Solution()">Show Solution</button>
+                <div id="ex6Output" class="output-box"></div>
+            </div>
+
+            <div class="tip-box">
+                <strong>💡 Tips for Solving Exercises:</strong><br>
+                • Break the problem into smaller steps<br>
+                • Write pseudocode first (plain English description)<br>
+                • Test with simple examples<br>
+                • Use console.log() to debug<br>
+                • Don't be afraid to look at the solution and learn from it!
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Initialize Mermaid
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+
+        // Employee records data
+        const employeeRecords = [
+            { "name": "Anam", "salary": 23000 },
+            { "name": "Anil", "salary": 25000 },
+            { "name": "Ankush", "salary": 22000 },
+            { "name": "Priyanka", "salary": 21000 },
+            { "name": "Shailesh", "salary": 23000 }
+        ];
+
+        // Student data
+        const studentData = {
+            "name": "Ajay Nagar",
+            "age": 23,
+            "address": {
+                "city": "Pune",
+                "state": "Maharashtra"
+            },
+            "hobbies": ["cricket", "tennis", "football"]
+        };
+
+        // Tab switching
+        function showTab(tabName) {
+            const sections = document.querySelectorAll('.content-section');
+            const buttons = document.querySelectorAll('.tab-btn');
+            
+            sections.forEach(section => section.classList.remove('active'));
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            // Re-render mermaid diagrams
+            mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+        }
+
+        // Arrays Section Functions
+        function exploreArray() {
+            const input = document.getElementById('arrayInput').value;
+            const arr = input.split(',').map(x => x.trim());
+            
+            let output = `Array: [${arr.join(', ')}]\n\n`;
+            output += `Length: ${arr.length}\n`;
+            output += `First Element: ${arr[0]}\n`;
+            output += `Last Element: ${arr[arr.length - 1]}\n\n`;
+            output += `All Elements:\n`;
+            
+            arr.forEach((val, index) => {
+                output += `arr[${index}] = ${val}\n`;
+            });
+            
+            document.getElementById('arrayOutput').textContent = output;
+        }
+
+        function findMax() {
+            const input = document.getElementById('maxMinInput').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let max = arr[0];
+            for (let x of arr) {
+                if (x > max) {
+                    max = x;
+                }
+            }
+            
+            document.getElementById('maxMinOutput').textContent = 
+                `Array: [${arr.join(', ')}]\nMaximum value: ${max}`;
+        }
+
+        function findMin() {
+            const input = document.getElementById('maxMinInput').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let min = arr[0];
+            for (let x of arr) {
+                if (x < min) {
+                    min = x;
+                }
+            }
+            
+            document.getElementById('maxMinOutput').textContent = 
+                `Array: [${arr.join(', ')}]\nMinimum value: ${min}`;
+        }
+
+        // JSON Section Functions
+        function showName() {
+            document.getElementById('jsonOutput').textContent = 
+                `Name: ${studentData.name}`;
+        }
+
+        function showCity() {
+            document.getElementById('jsonOutput').textContent = 
+                `City: ${studentData.address.city}\nState: ${studentData.address.state}`;
+        }
+
+        function showHobbies() {
+            let output = 'Hobbies:\n';
+            studentData.hobbies.forEach((hobby, index) => {
+                output += `${index + 1}. ${hobby}\n`;
+            });
+            document.getElementById('jsonOutput').textContent = output;
+        }
+
+        function showAllJSON() {
+            document.getElementById('jsonOutput').textContent = 
+                JSON.stringify(studentData, null, 2);
+        }
+
+        // Employee functions
+        function loadEmployeeTable() {
+            let html = '';
+            employeeRecords.forEach(emp => {
+                html += `<tr>
+                    <td>${emp.name}</td>
+                    <td>₹${emp.salary.toLocaleString()}</td>
+                </tr>`;
+            });
+            document.getElementById('employeeBody').innerHTML = html;
+        }
+
+        function findHighestSalary() {
+            let maxSalary = 0;
+            let employees = [];
+            
+            for (let emp of employeeRecords) {
+                if (emp.salary > maxSalary) {
+                    maxSalary = emp.salary;
+                }
+            }
+            
+            for (let emp of employeeRecords) {
+                if (emp.salary === maxSalary) {
+                    employees.push(emp.name);
+                }
+            }
+            
+            document.getElementById('salaryOutput').textContent = 
+                `Highest Salary: ₹${maxSalary.toLocaleString()}\nEmployees: ${employees.join(', ')}`;
+        }
+
+        function calculateTotalSalary() {
+            let total = 0;
+            for (let emp of employeeRecords) {
+                total += emp.salary;
+            }
+            
+            document.getElementById('salaryOutput').textContent = 
+                `Total Salary: ₹${total.toLocaleString()}\nNumber of Employees: ${employeeRecords.length}`;
+        }
+
+        function findLowestSalary() {
+            let minSalary = employeeRecords[0].salary;
+            let employees = [];
+            
+            for (let emp of employeeRecords) {
+                if (emp.salary < minSalary) {
+                    minSalary = emp.salary;
+                }
+            }
+            
+            for (let emp of employeeRecords) {
+                if (emp.salary === minSalary) {
+                    employees.push(emp.name);
+                }
+            }
+            
+            document.getElementById('salaryOutput').textContent = 
+                `Lowest Salary: ₹${minSalary.toLocaleString()}\nEmployees: ${employees.join(', ')}`;
+        }
+
+        function find2ndHighest() {
+            const salaries = [...new Set(employeeRecords.map(e => e.salary))].sort((a, b) => b - a);
+            const secondHighest = salaries[1];
+            
+            const employees = employeeRecords.filter(e => e.salary === secondHighest).map(e => e.name);
+            
+            document.getElementById('salaryOutput').textContent = 
+                `2nd Highest Salary: ₹${secondHighest.toLocaleString()}\nEmployees: ${employees.join(', ')}`;
+        }
+
+        // Loops Section Functions
+        function demoIndexLoop() {
+            const input = document.getElementById('loopInput').value;
+            const arr = input.split(',').map(x => x.trim());
+            
+            let output = 'Index-based For Loop:\n\n';
+            for (let i = 0; i < arr.length; i++) {
+                output += `arr[${i}] = ${arr[i]}\n`;
+            }
+            
+            document.getElementById('loopOutput').textContent = output;
+        }
+
+        function demoValueLoop() {
+            const input = document.getElementById('loopInput').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let output = 'Value-based For...of Loop:\n\n';
+            for (let value of arr) {
+                output += `Value: ${value}\n`;
+            }
+            
+            document.getElementById('loopOutput').textContent = output;
+        }
+
+        function demoSquares() {
+            const input = document.getElementById('loopInput').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let output = 'Squares Calculation:\n\n';
+            for (let value of arr) {
+                output += `Square of ${value} is ${value * value}\n`;
+            }
+            
+            document.getElementById('loopOutput').textContent = output;
+        }
+
+        function calcSum() {
+            const input = document.getElementById('calcInput').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let sum = 0;
+            for (let x of arr) {
+                sum += x;
+            }
+            
+            document.getElementById('calcOutput').textContent = 
+                `Array: [${arr.join(', ')}]\nSum: ${sum}`;
+        }
+
+        function calcAverage() {
+            const input = document.getElementById('calcInput').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let sum = 0;
+            for (let x of arr) {
+                sum += x;
+            }
+            let avg = sum / arr.length;
+            
+            document.getElementById('calcOutput').textContent = 
+                `Array: [${arr.join(', ')}]\nSum: ${sum}\nAverage: ${avg.toFixed(2)}`;
+        }
+
+        function calcProduct() {
+            const input = document.getElementById('calcInput').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let product = 1;
+            for (let x of arr) {
+                product *= x;
+            }
+            
+            document.getElementById('calcOutput').textContent = 
+                `Array: [${arr.join(', ')}]\nProduct: ${product}`;
+        }
+
+        // DOM Section Functions
+        function changeText() {
+            const text = document.getElementById('domInput').value;
+            document.getElementById('domOutput').textContent = text;
+        }
+
+        function makeUpper() {
+            const text = document.getElementById('domInput').value;
+            document.getElementById('domOutput').textContent = text.toUpperCase();
+        }
+
+        function makeLower() {
+            const text = document.getElementById('domInput').value;
+            document.getElementById('domOutput').textContent = text.toLowerCase();
+        }
+
+        function reverseText() {
+            const text = document.getElementById('domInput').value;
+            document.getElementById('domOutput').textContent = text.split('').reverse().join('');
+        }
+
+        function getDOMSquare() {
+            const num = parseFloat(document.getElementById('calcNumber').value);
+            const square = num * num;
+            document.getElementById('numberOutput').textContent = 
+                `Square of ${num} is ${square}`;
+        }
+
+        function getCube() {
+            const num = parseFloat(document.getElementById('calcNumber').value);
+            const cube = num * num * num;
+            document.getElementById('numberOutput').textContent = 
+                `Cube of ${num} is ${cube}`;
+        }
+
+        function getDouble() {
+            const num = parseFloat(document.getElementById('calcNumber').value);
+            const double = num * 2;
+            document.getElementById('numberOutput').textContent = 
+                `Double of ${num} is ${double}`;
+        }
+
+        function getTable() {
+            const num = parseFloat(document.getElementById('calcNumber').value);
+            let output = `Multiplication Table of ${num}:\n\n`;
+            
+            for (let i = 1; i <= 10; i++) {
+                output += `${num} × ${i} = ${num * i}\n`;
+            }
+            
+            document.getElementById('numberOutput').textContent = output;
+        }
+
+        // API Section Functions
+        function fetchGitHubUsers() {
+            document.getElementById('apiOutput').innerHTML = '<p>Loading GitHub users...</p>';
+            
+            fetch("https://api.github.com/users")
+                .then(response => response.json())
+                .then(data => {
+                    let output = '<h4>GitHub Users:</h4>';
+                    
+                    data.forEach(user => {
+                        output += `
+                            <div class="github-user">
+                                <img src="${user.avatar_url}" class="github-avatar" alt="${user.login}">
+                                <div>
+                                    <strong>ID:</strong> ${user.id}<br>
+                                    <strong>Username:</strong> ${user.login}<br>
+                                    <strong>Profile:</strong> <a href="${user.html_url}" target="_blank">View Profile</a>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    document.getElementById('apiOutput').innerHTML = output;
+                })
+                .catch(error => {
+                    document.getElementById('apiOutput').innerHTML = 
+                        `<p style="color: red;">Error: ${error.message}</p>`;
+                });
+        }
+
+        function clearAPIData() {
+            document.getElementById('apiOutput').innerHTML = '';
+        }
+
+        function fetchRandomUser() {
+            document.getElementById('apiDemo2').innerHTML = '<p>Loading random user...</p>';
+            
+            fetch("https://randomuser.me/api/")
+                .then(response => response.json())
+                .then(data => {
+                    const user = data.results[0];
+                    let output = `
+                        <h4>Random User:</h4>
+                        <div class="github-user">
+                            <img src="${user.picture.large}" class="github-avatar" alt="User">
+                            <div>
+                                <strong>Name:</strong> ${user.name.first} ${user.name.last}<br>
+                                <strong>Email:</strong> ${user.email}<br>
+                                <strong>Location:</strong> ${user.location.city}, ${user.location.country}<br>
+                                <strong>Phone:</strong> ${user.phone}
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('apiDemo2').innerHTML = output;
+                })
+                .catch(error => {
+                    document.getElementById('apiDemo2').innerHTML = 
+                        `<p style="color: red;">Error: ${error.message}</p>`;
+                });
+        }
+
+        function fetchJoke() {
+            document.getElementById('apiDemo2').innerHTML = '<p>Loading joke...</p>';
+            
+            fetch("https://official-joke-api.appspot.com/random_joke")
+                .then(response => response.json())
+                .then(data => {
+                    let output = `
+                        <h4>Random Joke:</h4>
+                        <p><strong>Setup:</strong> ${data.setup}</p>
+                        <p><strong>Punchline:</strong> ${data.punchline}</p>
+                    `;
+                    document.getElementById('apiDemo2').innerHTML = output;
+                })
+                .catch(error => {
+                    document.getElementById('apiDemo2').innerHTML = 
+                        `<p style="color: red;">Error: ${error.message}</p>`;
+                });
+        }
+
+        function fetchDogImage() {
+            document.getElementById('apiDemo2').innerHTML = '<p>Loading dog image...</p>';
+            
+            fetch("https://dog.ceo/api/breeds/image/random")
+                .then(response => response.json())
+                .then(data => {
+                    let output = `
+                        <h4>Random Dog:</h4>
+                        <img src="${data.message}" style="max-width: 100%; border-radius: 10px;" alt="Random Dog">
+                    `;
+                    document.getElementById('apiDemo2').innerHTML = output;
+                })
+                .catch(error => {
+                    document.getElementById('apiDemo2').innerHTML = 
+                        `<p style="color: red;">Error: ${error.message}</p>`;
+                });
+        }
+
+        // Exercise Functions
+        function solveEx1() {
+            const input = document.getElementById('ex1Input').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let min = arr[0];
+            for (let x of arr) {
+                if (x < min) {
+                    min = x;
+                }
+            }
+            
+            document.getElementById('ex1Output').textContent = 
+                `Array: [${arr.join(', ')}]\nMinimum element: ${min}`;
+        }
+
+        function showEx1Solution() {
+            document.getElementById('ex1Output').textContent = 
+`Solution Code:
+
+let arr = [15, 8, 23, 4, 16, 42];
+let min = arr[0];
+
+for (let x of arr) {
+    if (x < min) {
+        min = x;
+    }
+}
+
+console.log("Minimum is", min);  // Output: 4`;
+        }
+
+        function solveEx2() {
+            let total = 0;
+            for (let emp of employeeRecords) {
+                total += emp.salary;
+            }
+            let avg = total / employeeRecords.length;
+            
+            document.getElementById('ex2Output').textContent = 
+                `Total Salary: ₹${total.toLocaleString()}\nNumber of Employees: ${employeeRecords.length}\nAverage Salary: ₹${avg.toLocaleString()}`;
+        }
+
+        function showEx2Solution() {
+            document.getElementById('ex2Output').textContent = 
+`Solution Code:
+
+let records = [
+    { "name": "Anam", "salary": 23000 },
+    { "name": "Anil", "salary": 25000 },
+    { "name": "Ankush", "salary": 22000 },
+    { "name": "Priyanka", "salary": 21000 },
+    { "name": "Shailesh", "salary": 23000 }
+];
+
+let total = 0;
+for (let emp of records) {
+    total += emp.salary;
+}
+
+let avg = total / records.length;
+console.log("Average Salary:", avg);`;
+        }
+
+        function solveEx3() {
+            const salaries = [...new Set(employeeRecords.map(e => e.salary))].sort((a, b) => b - a);
+            const secondHighest = salaries[1];
+            
+            const employees = employeeRecords.filter(e => e.salary === secondHighest);
+            
+            let output = `2nd Highest Salary: ₹${secondHighest.toLocaleString()}\n\nEmployees:\n`;
+            employees.forEach(emp => {
+                output += `${emp.name} - ₹${emp.salary.toLocaleString()}\n`;
+            });
+            
+            document.getElementById('ex3Output').textContent = output;
+        }
+
+        function showEx3Solution() {
+            document.getElementById('ex3Output').textContent = 
+`Solution Code:
+
+// Step 1: Find all unique salaries and sort them
+let salaries = [...new Set(records.map(e => e.salary))];
+salaries.sort((a, b) => b - a);
+
+// Step 2: Get 2nd highest salary
+let secondHighest = salaries[1];
+
+// Step 3: Find employees with 2nd highest salary
+for (let emp of records) {
+    if (emp.salary === secondHighest) {
+        console.log(emp.name);
+    }
+}`;
+        }
+
+        function solveEx4() {
+            const input = document.getElementById('ex4Input').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let sum = 0;
+            for (let x of arr) {
+                sum += x;
+            }
+            
+            document.getElementById('ex4Output').textContent = 
+                `Array: [${arr.join(', ')}]\nSum: ${sum}`;
+        }
+
+        function showEx4Solution() {
+            document.getElementById('ex4Output').textContent = 
+`Solution Code:
+
+let arr = [5, 10, 15, 20];
+let sum = 0;
+
+for (let x of arr) {
+    sum = sum + x;
+}
+
+console.log("Sum:", sum);  // Output: 50`;
+        }
+
+        function solveEx5() {
+            const num = parseFloat(document.getElementById('ex5Input').value);
+            let output = `Multiplication Table of ${num}:\n\n`;
+            
+            for (let i = 1; i <= 10; i++) {
+                output += `${num} × ${i} = ${num * i}\n`;
+            }
+            
+            document.getElementById('ex5Output').textContent = output;
+        }
+
+        function showEx5Solution() {
+            document.getElementById('ex5Output').textContent = 
+`Solution Code:
+
+let num = 5;
+
+for (let i = 1; i <= 10; i++) {
+    console.log(\`\${num} × \${i} = \${num * i}\`);
+}
+
+// Output:
+// 5 × 1 = 5
+// 5 × 2 = 10
+// ... and so on`;
+        }
+
+        function solveEx6() {
+            const input = document.getElementById('ex6Input').value;
+            const arr = input.split(',').map(x => parseFloat(x.trim()));
+            
+            let sum = 0;
+            for (let x of arr) {
+                sum += x;
+            }
+            let avg = sum / arr.length;
+            
+            let count = 0;
+            let greaterElements = [];
+            for (let x of arr) {
+                if (x > avg) {
+                    count++;
+                    greaterElements.push(x);
+                }
+            }
+            
+            document.getElementById('ex6Output').textContent = 
+                `Array: [${arr.join(', ')}]\nAverage: ${avg.toFixed(2)}\nElements greater than average: ${count}\nThey are: [${greaterElements.join(', ')}]`;
+        }
+
+        function showEx6Solution() {
+            document.getElementById('ex6Output').textContent = 
+`Solution Code:
+
+let arr = [10, 20, 30, 40, 50];
+
+// Calculate average
+let sum = 0;
+for (let x of arr) {
+    sum += x;
+}
+let avg = sum / arr.length;
+
+// Count elements greater than average
+let count = 0;
+for (let x of arr) {
+    if (x > avg) {
+        count++;
+    }
+}
+
+console.log("Count:", count);  // Output: 2`;
+        }
+
+        // Initialize employee table on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            loadEmployeeTable();
+        });
+    </script>
+</body>
+</html>
