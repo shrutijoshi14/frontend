@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Commands Guide - PHPMyAdmin</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        header h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+        
+        nav {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        nav button {
+            padding: 10px 20px;
+            border: none;
+            background: #667eea;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        
+        nav button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        nav button.active {
+            background: #764ba2;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .command-box {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        
+        .command-box code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            display: block;
+            font-size: 0.95em;
+            font-family: 'Courier New', monospace;
+            line-height: 1.5;
+        }
+        
+        .explanation {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .explanation h4 {
+            color: #2196F3;
+            margin-bottom: 8px;
+        }
+        
+        .flowchart-container {
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        
+        .phpmyadmin-steps {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .phpmyadmin-steps h4 {
+            color: #ff6b6b;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .phpmyadmin-steps ol {
+            margin-left: 20px;
+        }
+        
+        .phpmyadmin-steps li {
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        .troubleshoot {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .troubleshoot h4 {
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+        
+        .note {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .note h4 {
+            color: #17a2b8;
+            margin-bottom: 8px;
+        }
+        
+        .syntax-highlight {
+            background: #f0f0f0;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            margin-top: 40px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        table th {
+            background: #667eea;
+            color: white;
+        }
+        
+        table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🗄️ SQL Commands Complete Guide</h1>
+            <p>Master SQL Queries with PHPMyAdmin - Step by Step Tutorial</p>
+        </header>
+        
+        <nav>
+            <button class="nav-btn active" data-section="overview">Overview</button>
+            <button class="nav-btn" data-section="create">CREATE</button>
+            <button class="nav-btn" data-section="alter">ALTER</button>
+            <button class="nav-btn" data-section="drop">DROP</button>
+            <button class="nav-btn" data-section="insert">INSERT</button>
+            <button class="nav-btn" data-section="select">SELECT</button>
+            <button class="nav-btn" data-section="update">UPDATE</button>
+            <button class="nav-btn" data-section="delete">DELETE</button>
+            <button class="nav-btn" data-section="advanced">Advanced</button>
+        </nav>
+        
+        <!-- Overview Section -->
+        <div class="section active" id="overview">
+            <h2>📋 SQL Commands Overview</h2>
+            <p style="margin-bottom: 20px;">This guide covers all fundamental SQL commands with practical examples for the <strong>stud8</strong> table in the <strong>tpuser</strong> database.</p>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph TD
+    A["SQL Commands"] --> B["DDL - Data Definition Language"]
+    A --> C["DML - Data Manipulation Language"]
+    A --> D["DQL - Data Query Language"]
+    B --> B1["CREATE"]
+    B --> B2["ALTER"]
+    B --> B3["DROP"]
+    C --> C1["INSERT"]
+    C --> C2["UPDATE"]
+    C --> C3["DELETE"]
+    D --> D1["SELECT"]
+                </div>
+            </div>
+            
+            <table>
+                <tr>
+                    <th>Category</th>
+                    <th>Command</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>DDL</td>
+                    <td>CREATE</td>
+                    <td>Create database or table</td>
+                </tr>
+                <tr>
+                    <td>DDL</td>
+                    <td>ALTER</td>
+                    <td>Modify table structure</td>
+                </tr>
+                <tr>
+                    <td>DDL</td>
+                    <td>DROP</td>
+                    <td>Delete table or database</td>
+                </tr>
+                <tr>
+                    <td>DML</td>
+                    <td>INSERT</td>
+                    <td>Add records</td>
+                </tr>
+                <tr>
+                    <td>DML</td>
+                    <td>UPDATE</td>
+                    <td>Modify records</td>
+                </tr>
+                <tr>
+                    <td>DML</td>
+                    <td>DELETE</td>
+                    <td>Remove records</td>
+                </tr>
+                <tr>
+                    <td>DQL</td>
+                    <td>SELECT</td>
+                    <td>Retrieve data</td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- CREATE Section -->
+        <div class="section" id="create">
+            <h2>🆕 CREATE Command</h2>
+            
+            <div class="explanation">
+                <h4>📌 What is CREATE?</h4>
+                <p>The CREATE command is used to create a new database or table. It defines the structure of data storage.</p>
+            </div>
+            
+            <h3>Creating Database</h3>
+            <div class="command-box">
+                <code>CREATE DATABASE tpuser;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p><span class="syntax-highlight">CREATE DATABASE</span> creates a new database named <span class="syntax-highlight">tpuser</span>. This is the container for all tables and data.</p>
+            </div>
+            
+            <h3>Creating Table</h3>
+            <div class="command-box">
+                <code>CREATE TABLE stud8 (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50),
+    age INT,
+    city VARCHAR(50)
+);</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><span class="syntax-highlight">id INT PRIMARY KEY AUTO_INCREMENT</span> - Creates an auto-incrementing primary key (unique identifier)</li>
+                    <li><span class="syntax-highlight">name VARCHAR(50)</span> - String field, max 50 characters</li>
+                    <li><span class="syntax-highlight">age INT</span> - Integer field for age values</li>
+                    <li><span class="syntax-highlight">city VARCHAR(50)</span> - String field for city names</li>
+                </ul>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph LR
+    A["CREATE DATABASE/TABLE"] --> B["Define Structure"]
+    B --> C["Set Constraints"]
+    C --> D["Save in Storage"]
+    D --> E["Ready to Use"]
+                </div>
+            </div>
+            
+            <div class="phpmyadmin-steps">
+                <h4>🖥️ How to Execute in PHPMyAdmin:</h4>
+                <ol>
+                    <li>Open PHPMyAdmin in your browser</li>
+                    <li>Click on the <strong>SQL</strong> tab at the top</li>
+                    <li>Paste the CREATE command in the query editor</li>
+                    <li>Click the <strong>Go</strong> button or press Ctrl+Enter</li>
+                    <li>You'll see a success message if the database/table is created</li>
+                </ol>
+            </div>
+            
+            <div class="troubleshoot">
+                <h4>⚠️ Common Issues & Solutions:</h4>
+                <p><strong>Error: "Database already exists"</strong></p>
+                <p style="margin-left: 20px;">→ Use: <code>CREATE DATABASE IF NOT EXISTS tpuser;</code></p>
+                <p style="margin-top: 10px;"><strong>Error: "Table already exists"</strong></p>
+                <p style="margin-left: 20px;">→ Use: <code>CREATE TABLE IF NOT EXISTS stud8 (...)</code></p>
+            </div>
+        </div>
+        
+        <!-- ALTER Section -->
+        <div class="section" id="alter">
+            <h2>✏️ ALTER Command</h2>
+            
+            <div class="explanation">
+                <h4>📌 What is ALTER?</h4>
+                <p>The ALTER command modifies the structure of an existing table. You can add, modify, or delete columns.</p>
+            </div>
+            
+            <h3>Adding a Column</h3>
+            <div class="command-box">
+                <code>ALTER TABLE stud8 ADD email VARCHAR(100);</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p><span class="syntax-highlight">ALTER TABLE stud8 ADD email VARCHAR(100)</span> adds a new column named <strong>email</strong> to the existing stud8 table with a maximum length of 100 characters.</p>
+            </div>
+            
+            <div class="note">
+                <h4>💡 Other ALTER Operations:</h4>
+                <p><strong>Modify column:</strong> <code>ALTER TABLE stud8 MODIFY COLUMN age VARCHAR(3);</code></p>
+                <p><strong>Drop column:</strong> <code>ALTER TABLE stud8 DROP COLUMN email;</code></p>
+                <p><strong>Rename column:</strong> <code>ALTER TABLE stud8 CHANGE COLUMN email student_email VARCHAR(100);</code></p>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph LR
+    A["ALTER TABLE"] --> B{Operation Type}
+    B -->|ADD| C["Add New Column"]
+    B -->|MODIFY| D["Change Column Type"]
+    B -->|DROP| E["Remove Column"]
+    B -->|CHANGE| F["Rename Column"]
+    C --> G["Table Updated"]
+    D --> G
+    E --> G
+    F --> G
+                </div>
+            </div>
+            
+            <div class="phpmyadmin-steps">
+                <h4>🖥️ How to Execute in PHPMyAdmin:</h4>
+                <ol>
+                    <li>Open your database and select the <strong>stud8</strong> table</li>
+                    <li>Click on the <strong>SQL</strong> tab</li>
+                    <li>Enter the ALTER command</li>
+                    <li>Click <strong>Go</strong></li>
+                    <li>Check the table structure to verify the change</li>
+                </ol>
+            </div>
+            
+            <div class="troubleshoot">
+                <h4>⚠️ Common Issues & Solutions:</h4>
+                <p><strong>Error: "Column already exists"</strong></p>
+                <p style="margin-left: 20px;">→ Check if the column exists before adding</p>
+                <p style="margin-top: 10px;"><strong>Error: "Cannot drop key column"</strong></p>
+                <p style="margin-left: 20px;">→ Cannot drop a column that is used as a key constraint</p>
+            </div>
+        </div>
+        
+        <!-- DROP Section -->
+        <div class="section" id="drop">
+            <h2>🗑️ DROP Command</h2>
+            
+            <div class="explanation">
+                <h4>📌 What is DROP?</h4>
+                <p>The DROP command permanently deletes a table or database. This is irreversible - use with caution!</p>
+            </div>
+            
+            <h3>Dropping a Table</h3>
+            <div class="command-box">
+                <code>DROP TABLE stud8;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p><span class="syntax-highlight">DROP TABLE stud8</span> permanently removes the stud8 table and all its data from the database.</p>
+            </div>
+            
+            <div class="troubleshoot">
+                <h4>⚠️ WARNING - Data Loss!</h4>
+                <p>This command will permanently delete all data in the table. Make sure you have a backup before executing this command!</p>
+            </div>
+            
+            <div class="note">
+                <h4>💡 Safer Alternative:</h4>
+                <p>Use <span class="syntax-highlight">DROP TABLE IF EXISTS stud8;</span> to avoid errors if table doesn't exist</p>
+                <p style="margin-top: 10px;">Or use <span class="syntax-highlight">TRUNCATE TABLE stud8;</span> to delete data but keep the structure (faster and allows undo in some cases)</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph LR
+    A["DROP TABLE Command"] --> B["Check for Dependencies"]
+    B --> C["Delete All Data"]
+    C --> D["Delete Table Structure"]
+    D --> E["Space Freed"]
+    E --> F["⚠️ IRREVERSIBLE"]
+                </div>
+            </div>
+            
+            <div class="phpmyadmin-steps">
+                <h4>🖥️ How to Execute in PHPMyAdmin:</h4>
+                <ol>
+                    <li>Open your database</li>
+                    <li>Click on the <strong>SQL</strong> tab</li>
+                    <li>Enter the DROP command</li>
+                    <li>Click <strong>Go</strong></li>
+                    <li>Confirm the deletion when prompted</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- INSERT Section -->
+        <div class="section" id="insert">
+            <h2>➕ INSERT Command</h2>
+            
+            <div class="explanation">
+                <h4>📌 What is INSERT?</h4>
+                <p>The INSERT command adds new records (rows) to a table. You provide the column names and values.</p>
+            </div>
+            
+            <h3>Inserting Single Record</h3>
+            <div class="command-box">
+                <code>INSERT INTO stud8 (name, age, city) 
+VALUES ('Amit', 20, 'Mumbai');</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><span class="syntax-highlight">INSERT INTO stud8</span> - Specify the table to insert into</li>
+                    <li><span class="syntax-highlight">(name, age, city)</span> - Specify which columns to fill</li>
+                    <li><span class="syntax-highlight">VALUES ('Amit', 20, 'Mumbai')</span> - Provide the values</li>
+                    <li>Note: <strong>id</strong> is omitted as it's AUTO_INCREMENT</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <h4>💡 Inserting Multiple Records:</h4>
+                <code style="background: #f0f0f0; padding: 10px; border-radius: 3px; display: block; margin-top: 10px;">INSERT INTO stud8 (name, age, city) VALUES
+('Amit', 20, 'Mumbai'),
+('Rajesh', 22, 'Delhi'),
+('Priya', 21, 'Bangalore');</code>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph LR
+    A["INSERT Command"] --> B["Validate Data"]
+    B --> C["Check Constraints"]
+    C --> D["Add to Table"]
+    D --> E["Auto-increment ID"]
+    E --> F["Record Added"]
+                </div>
+            </div>
+            
+            <div class="phpmyadmin-steps">
+                <h4>🖥️ How to Execute in PHPMyAdmin:</h4>
+                <ol>
+                    <li>Select your database (tpuser)</li>
+                    <li>Click on the <strong>stud8</strong> table</li>
+                    <li>Click the <strong>Insert</strong> tab</li>
+                    <li>Fill in the form with data (skip 'id' field)</li>
+                    <li>Click <strong>Go</strong></li>
+                    <li>Or use SQL tab and paste the INSERT command</li>
+                </ol>
+            </div>
+            
+            <div class="troubleshoot">
+                <h4>⚠️ Common Issues & Solutions:</h4>
+                <p><strong>Error: "Data too long for column"</strong></p>
+                <p style="margin-left: 20px;">→ Your value exceeds the VARCHAR length limit</p>
+                <p style="margin-top: 10px;"><strong>Error: "Cannot be null"</strong></p>
+                <p style="margin-left: 20px;">→ You must provide a value for required columns</p>
+            </div>
+        </div>
+        
+        <!-- SELECT Section -->
+        <div class="section" id="select">
+            <h2>🔍 SELECT Command</h2>
+            
+            <div class="explanation">
+                <h4>📌 What is SELECT?</h4>
+                <p>The SELECT command retrieves data from a table. It's the most commonly used SQL command for viewing data.</p>
+            </div>
+            
+            <h3>1. Select All Records</h3>
+            <div class="command-box">
+                <code>SELECT * FROM stud8;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p><span class="syntax-highlight">*</span> means "all columns". This returns every column and every row from the stud8 table.</p>
+            </div>
+            
+            <h3>2. Select Specific Columns</h3>
+            <div class="command-box">
+                <code>SELECT name, city FROM stud8;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>Returns only the <strong>name</strong> and <strong>city</strong> columns for all rows. Other columns are not displayed.</p>
+            </div>
+            
+            <h3>3. SELECT with WHERE Clause</h3>
+            <div class="command-box">
+                <code>SELECT * FROM stud8 WHERE city = 'Mumbai';</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>Returns only records where the city is 'Mumbai'. The <span class="syntax-highlight">WHERE</span> clause filters results.</p>
+            </div>
+            
+            <h3>4. SELECT with Multiple Conditions (AND)</h3>
+            <div class="command-box">
+                <code>SELECT * FROM stud8 WHERE city='Mumbai' AND age > 18;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>Returns records that meet BOTH conditions: city is 'Mumbai' AND age is greater than 18.</p>
+            </div>
+            
+            <h3>5. SELECT with ORDER BY</h3>
+            <div class="command-box">
+                <code>SELECT * FROM stud8 ORDER BY age DESC;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><span class="syntax-highlight">ORDER BY age</span> - Sort by age column</li>
+                    <li><span class="syntax-highlight">DESC</span> - Descending order (highest first). Use ASC for ascending</li>
+                </ul>
+            </div>
+            
+            <h3>6. SELECT with LIMIT</h3>
+            <div class="command-box">
+                <code>SELECT * FROM stud8 LIMIT 3;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <p>Returns only the first 3 records. Useful for pagination or limiting large result sets.</p>
+            </div>
+            
+            <h3>7. SELECT with LIKE (Pattern Matching)</h3>
+            <div class="command-box">
+                <code>SELECT * FROM stud8 WHERE name LIKE 'A%';</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><span class="syntax-highlight">A%</span> - Names starting with 'A' (% = any characters)</li>
+                    <li><span class="syntax-highlight">%a</span> - Names ending with 'a'</li>
+                    <li><span class="syntax-highlight">_a%</span> - Second letter is 'a' (_ = exactly one character)</li>
+                </ul>
+            </div>
+            
+            <div class="command-box">
+                <code>SELECT * FROM stud8 WHERE name LIKE '%a';
+SELECT * FROM stud8 WHERE name LIKE 'S__';</code>
+            </div>
+            
+            <h3>8. SELECT with Aggregate Functions</h3>
+            <div class="command-box">
+                <code>SELECT COUNT(*) FROM stud8;
+SELECT MAX(age) FROM stud8;
+SELECT MIN(age) FROM stud8;
+SELECT AVG(age) FROM stud8;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><span class="syntax-highlight">COUNT(*)</span> - Total number of records</li>
+                    <li><span class="syntax-highlight">MAX(age)</span> - Highest age value</li>
+                    <li><span class="syntax-highlight">MIN(age)</span> - Lowest age value</li>
+                    <li><span class="syntax-highlight">AVG(age)</span> - Average age</li>
+                </ul>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph LR
+    A["SELECT Query"] --> B["Specify Columns"]
+    B --> C["Choose Table"]
+    C --> D["Apply Filters"]
+    D --> E["Sort Results"]
+    E --> F["Limit Rows"]
+    F --> G["Return Data"]
+                </div>
+            </div>
+            
+            <div class="phpmyadmin-steps">
+                <h4>🖥️ How to Execute in PHPMyAdmin:</h4>
+                <ol>
+                    <li>Select your database and table</li>
+                    <li>Click the <strong>SQL</strong> tab</li>
+                    <li>Paste your SELECT query</li>
+                    <li>Click <strong>Go</strong></li>
+                    <li>Results appear in table format below</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- UPDATE Section -->
+        <div class="section" id="update">
+            <h2>🔄 UPDATE Command</h2>
+            
+            <div class="explanation">
+                <h4>📌 What is UPDATE?</h4>
+                <p>The UPDATE command modifies existing records in a table. Always use WHERE clause to specify which records to update.</p>
+            </div>
+            
+            <h3>Updating a Record</h3>
+            <div class="command-box">
+                <code>UPDATE stud8 SET age = 21 WHERE name = 'Amit';</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><span class="syntax-highlight">UPDATE stud8</span> - Specify the table</li>
+                    <li><span class="syntax-highlight">SET age = 21</span> - Set age column to 21</li>
+                    <li><span class="syntax-highlight">WHERE name = 'Amit'</span> - Only for records where name is 'Amit'</li>
+                </ul>
+            </div>
+            
+            <div class="note">
+                <h4>💡 Updating Multiple Columns:</h4>
+                <code style="background: #f0f0f0; padding: 10px; border-radius: 3px; display: block; margin-top: 10px;">UPDATE stud8 SET age = 21, city = 'Delhi' WHERE name = 'Amit';</code>
+            </div>
+            
+            <div class="troubleshoot">
+                <h4>⚠️ CRITICAL - Missing WHERE Clause:</h4>
+                <p><strong>❌ WRONG:</strong> <code>UPDATE stud8 SET age = 21;</code> (This updates ALL records!)</p>
+                <p><strong>✅ CORRECT:</strong> <code>UPDATE stud8 SET age = 21 WHERE name = 'Amit';</code></p>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph LR
+    A["UPDATE Command"] --> B["Identify Table"]
+    B --> C["Specify Changes"]
+    C --> D["Define WHERE Clause"]
+    D --> E["Match Records"]
+    E --> F["Update Values"]
+    F --> G["Success"]
+                </div>
+            </div>
+            
+            <div class="phpmyadmin-steps">
+                <h4>🖥️ How to Execute in PHPMyAdmin:</h4>
+                <ol>
+                    <li>Go to SQL tab in your database</li>
+                    <li>Type your UPDATE query</li>
+                    <li>Click <strong>Go</strong></li>
+                    <li>Check the message showing rows affected</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- DELETE Section -->
+        <div class="section" id="delete">
+            <h2>❌ DELETE Command</h2>
+            
+            <div class="explanation">
+                <h4>📌 What is DELETE?</h4>
+                <p>The DELETE command removes records from a table. Always use WHERE clause to avoid deleting all records!</p>
+            </div>
+            
+            <h3>Deleting a Record</h3>
+            <div class="command-box">
+                <code>DELETE FROM stud8 WHERE name = 'Amit';</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Explanation:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><span class="syntax-highlight">DELETE FROM stud8</span> - Specify the table</li>
+                    <li><span class="syntax-highlight">WHERE name = 'Amit'</span> - Delete only records where name is 'Amit'</li>
+                </ul>
+            </div>
+            
+            <div class="troubleshoot">
+                <h4>⚠️ WARNING - Data Loss!</h4>
+                <p><strong>❌ WRONG:</strong> <code>DELETE FROM stud8;</code> (This deletes ALL records!)</p>
+                <p><strong>✅ CORRECT:</strong> <code>DELETE FROM stud8 WHERE name = 'Amit';</code></p>
+            </div>
+            
+            <div class="note">
+                <h4>💡 Differences:</h4>
+                <p><strong>DELETE:</strong> Can be rolled back, slower, triggers fired</p>
+                <p><strong>TRUNCATE:</strong> Cannot be rolled back, faster, no triggers</p>
+                <p><strong>DROP:</strong> Removes entire table structure</p>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph LR
+    A["DELETE Command"] --> B["Identify Table"]
+    B --> C["Specify WHERE Clause"]
+    C --> D["Find Matching Records"]
+    D --> E["Delete Records"]
+    E --> F["Data Removed"]
+                </div>
+            </div>
+            
+            <div class="phpmyadmin-steps">
+                <h4>🖥️ How to Execute in PHPMyAdmin:</h4>
+                <ol>
+                    <li>Go to SQL tab</li>
+                    <li>Type your DELETE query with WHERE clause</li>
+                    <li>Click <strong>Go</strong></li>
+                    <li>Confirm deletion</li>
+                    <li>Check the affected rows count</li>
+                </ol>
+            </div>
+        </div>
+        
+        <!-- Advanced Section -->
+        <div class="section" id="advanced">
+            <h2>🚀 Advanced SELECT Queries</h2>
+            
+            <div class="explanation">
+                <h4>📌 Advanced Query Techniques</h4>
+                <p>Combine multiple clauses for powerful data retrieval and analysis.</p>
+            </div>
+            
+            <h3>Complete Query Examples</h3>
+            
+            <h4>Example 1: Multi-condition Query with Sorting</h4>
+            <div class="command-box">
+                <code>SELECT name, age, city FROM stud8 
+WHERE city = 'Mumbai' AND age > 18 
+ORDER BY age DESC;</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>What it does:</h4>
+                <p>Finds students from Mumbai older than 18, shows only name/age/city, sorted by age (oldest first)</p>
+            </div>
+            
+            <h4>Example 2: Pattern Matching with Wildcards</h4>
+            <div class="command-box">
+                <code>-- Names starting with 'A'
+SELECT * FROM stud8 WHERE name LIKE 'A%';
+
+-- Names ending with 'a'
+SELECT * FROM stud8 WHERE name LIKE '%a';
+
+-- Names where 2nd character is any letter, 3rd is also any
+SELECT * FROM stud8 WHERE name LIKE 'S__';</code>
+            </div>
+            
+            <div class="explanation">
+                <h4>Wildcard Patterns:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><span class="syntax-highlight">%</span> = Zero or more characters</li>
+                    <li><span class="syntax-highlight">_</span> = Exactly one character</li>
+                    <li><span class="syntax-highlight">A%</span> = Starts with 'A'</li>
+                    <li><span class="syntax-highlight">%a</span> = Ends with 'a'</li>
+                    <li><span class="syntax-highlight">S__</span> = Starts with 'S' followed by exactly 2 characters</li>
+                </ul>
+            </div>
+            
+            <h4>Example 3: Aggregate with LIMIT</h4>
+            <div class="command-box">
+                <code>-- Get top 3 youngest students
+SELECT * FROM stud8 ORDER BY age ASC LIMIT 3;
+
+-- Get total students
+SELECT COUNT(*) as total_students FROM stud8;
+
+-- Get statistics
+SELECT 
+    COUNT(*) as total,
+    AVG(age) as average_age,
+    MAX(age) as oldest,
+    MIN(age) as youngest
+FROM stud8;</code>
+            </div>
+            
+            <div class="flowchart-container">
+                <div class="mermaid">
+graph TD
+    A["Complex SELECT"] --> B["FROM Clause"]
+    B --> C["WHERE Filtering"]
+    C --> D["ORDER BY Sorting"]
+    D --> E["LIMIT Results"]
+    E --> F["Aggregate Functions"]
+    F --> G["Final Result Set"]
+                </div>
+            </div>
+            
+            <h3>Summary Table</h3>
+            <table>
+                <tr>
+                    <th>Clause</th>
+                    <th>Purpose</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>SELECT</td>
+                    <td>Choose columns</td>
+                    <td>SELECT name, age</td>
+                </tr>
+                <tr>
+                    <td>FROM</td>
+                    <td>Specify table</td>
+                    <td>FROM stud8</td>
+                </tr>
+                <tr>
+                    <td>WHERE</td>
+                    <td>Filter records</td>
+                    <td>WHERE city = 'Mumbai'</td>
+                </tr>
+                <tr>
+                    <td>AND/OR</td>
+                    <td>Multiple conditions</td>
+                    <td>WHERE age > 20 AND city = 'Delhi'</td>
+                </tr>
+                <tr>
+                    <td>ORDER BY</td>
+                    <td>Sort results</td>
+                    <td>ORDER BY age ASC</td>
+                </tr>
+                <tr>
+                    <td>LIMIT</td>
+                    <td>Restrict rows</td>
+                    <td>LIMIT 10</td>
+                </tr>
+                <tr>
+                    <td>LIKE</td>
+                    <td>Pattern matching</td>
+                    <td>LIKE 'A%'</td>
+                </tr>
+                <tr>
+                    <td>COUNT()</td>
+                    <td>Count records</td>
+                    <td>COUNT(*)</td>
+                </tr>
+                <tr>
+                    <td>MAX/MIN/AVG</td>
+                    <td>Aggregate stats</td>
+                    <td>MAX(age)</td>
+                </tr>
+            </table>
+            
+            <div class="phpmyadmin-steps">
+                <h4>🖥️ PHPMyAdmin Best Practices:</h4>
+                <ol>
+                    <li>Always write SELECT queries to preview data before DELETE/UPDATE</li>
+                    <li>Use LIMIT when testing queries on large tables</li>
+                    <li>Enable query history (View > Query window) for reference</li>
+                    <li>Use bookmarks for frequently used queries</li>
+                    <li>Backup your database regularly</li>
+                    <li>Test UPDATE/DELETE queries with SELECT first</li>
+                </ol>
+            </div>
+            
+            <div class="troubleshoot">
+                <h4>⚠️ Debugging Tips:</h4>
+                <p><strong>Query returns no results?</strong></p>
+                <p style="margin-left: 20px;">→ Check WHERE conditions, verify column names, check data types</p>
+                <p style="margin-top: 10px;"><strong>Syntax error in SQL?</strong></p>
+                <p style="margin-left: 20px;">→ Check for missing semicolons, mismatched quotes, typos</p>
+                <p style="margin-top: 10px;"><strong>Unexpected results?</strong></p>
+                <p style="margin-left: 20px;">→ Test each condition separately, use parentheses with complex conditions</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>📚 SQL Commands Guide | Created for Database Management Students</p>
+        <p>Last Updated: January 2026 | Compatible with PHPMyAdmin 5.x+</p>
+    </footer>
+    
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        mermaid.contentLoaded();
+        
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+                
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.section).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
