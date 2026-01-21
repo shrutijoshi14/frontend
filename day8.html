@@ -1,0 +1,1312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Fundamentals for Beginners</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background: #f8f9fa;
+            padding: 20px;
+            border-bottom: 2px solid #667eea;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        nav button {
+            padding: 10px 18px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        nav button:hover {
+            background: #764ba2;
+            transform: translateY(-2px);
+        }
+        
+        nav button.active {
+            background: #764ba2;
+            box-shadow: 0 4px 12px rgba(118, 75, 162, 0.4);
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+            animation: slideIn 0.3s ease-in;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .section h2 {
+            color: #667eea;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .subsection {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            border-left: 3px solid #667eea;
+        }
+        
+        .concept {
+            background: #e8f0fe;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #4285f4;
+        }
+        
+        .logic {
+            background: #fff3e0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+        }
+        
+        .example {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .mistake {
+            background: #ffebee;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 4px solid #f44336;
+        }
+        
+        code {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 5px;
+            display: block;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            margin: 15px 0;
+            line-height: 1.5;
+        }
+        
+        .inline-code {
+            background: #f0f0f0;
+            color: #d63384;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .emoji {
+            font-size: 1.3em;
+            margin-right: 10px;
+        }
+        
+        h4 {
+            color: #667eea;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+        
+        .diagram {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: white;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background: #667eea;
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        
+        footer {
+            background: #2d2d2d;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+        
+        .highlight {
+            background: #fff59d;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+
+        ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎓 SQL Fundamentals for Beginners</h1>
+            <p>Learn Database Management from Scratch - Step by Step</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><button class="nav-btn active" data-tab="intro">Introduction</button></li>
+                <li><button class="nav-btn" data-tab="create">Create Tables</button></li>
+                <li><button class="nav-btn" data-tab="constraints">Constraints</button></li>
+                <li><button class="nav-btn" data-tab="insert">Insert Data</button></li>
+                <li><button class="nav-btn" data-tab="aggregate">Aggregate</button></li>
+                <li><button class="nav-btn" data-tab="groupby">Group By</button></li>
+                <li><button class="nav-btn" data-tab="joins">Joins</button></li>
+                <li><button class="nav-btn" data-tab="subqueries">Subqueries</button></li>
+            </ul>
+        </nav>
+        
+        <div class="content">
+            
+            <!-- SECTION 1: INTRODUCTION -->
+            <section id="intro" class="section active">
+                <h2>1. Introduction to SQL</h2>
+                
+                <div class="subsection">
+                    <h3>What is SQL?</h3>
+                    <div class="concept">
+                        <span class="emoji">📌</span>
+                        <strong>Concept:</strong> SQL stands for <span class="highlight">Structured Query Language</span>. It's a special language used to talk to databases and get information from them.
+                    </div>
+                    <p>Think of SQL like a librarian's language. When you want a book, you don't search the entire library yourself. Instead, you ask the librarian "Give me all books about history published after 2020." The librarian understands your request and finds exactly what you need.</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Why Do We Need SQL?</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Logic Behind It:</strong>
+                        <p>Imagine a company has 1 million customer records. Without SQL, you'd have to:</p>
+                        <ul>
+                            <li>Open every file manually</li>
+                            <li>Read through each one</li>
+                            <li>Write down matching records</li>
+                        </ul>
+                        <p><strong>With SQL,</strong> you write one simple command and get results instantly. SQL makes working with large amounts of data <span class="highlight">fast, easy, and accurate</span>.</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Where is SQL Used? (Real-Life Examples)</h3>
+                    <table>
+                        <tr>
+                            <th>Company/Service</th>
+                            <th>What They Do With SQL</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Amazon</strong></td>
+                            <td>Stores and finds millions of products, customer orders, reviews</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Banks</strong></td>
+                            <td>Manages customer accounts, transactions, loan records</td>
+                        </tr>
+                        <tr>
+                            <td><strong>YouTube</strong></td>
+                            <td>Stores video information, user watch history, comments</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Schools</strong></td>
+                            <td>Keeps student records, grades, attendance, schedules</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hospitals</strong></td>
+                            <td>Stores patient medical records, appointment history</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="diagram">
+                        <div class="mermaid">
+                            graph TD
+                                A["Web Applications<br/>(Facebook, Gmail)"] -->|Uses| B["SQL Database"]
+                                C["Mobile Apps<br/>(Instagram, Uber)"] -->|Uses| B
+                                D["Enterprise Systems<br/>(Banks, Airlines)"] -->|Uses| B
+                                E["Websites & Services<br/>(Netflix, Spotify)"] -->|Uses| B
+                                B -->|Stores & Retrieves| F["Customer Data"]
+                                B -->|Stores & Retrieves| G["Transactions"]
+                                B -->|Stores & Retrieves| H["User Content"]
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- SECTION 2: CREATING TABLES -->
+            <section id="create" class="section">
+                <h2>2. Creating Tables</h2>
+                
+                <div class="subsection">
+                    <h3>What is a Table?</h3>
+                    <div class="concept">
+                        <span class="emoji">📌</span>
+                        <strong>Concept:</strong> A table is like an Excel spreadsheet. It has columns (fields) and rows (records). Each column stores one type of information, and each row is one complete record.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>CREATE TABLE Syntax</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Why This Syntax?</strong>
+                        <p>When creating a table, we need to tell SQL:</p>
+                        <ul>
+                            <li><span class="highlight">What's the table name?</span> (e.g., Students)</li>
+                            <li><span class="highlight">What columns do we need?</span> (e.g., StudentID, Name, Age)</li>
+                            <li><span class="highlight">What type of data goes in each column?</span> (e.g., numbers, text, dates)</li>
+                        </ul>
+                    </div>
+                    
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>CREATE TABLE TableName (
+    ColumnName DataType,
+    ColumnName DataType,
+    ColumnName DataType
+);</code>
+                    
+                    <h4>Common Data Types:</h4>
+                    <table>
+                        <tr>
+                            <th>Data Type</th>
+                            <th>What It Stores</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">INT</span></td>
+                            <td>Whole numbers</td>
+                            <td>25, 1000, -5</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">VARCHAR(50)</span></td>
+                            <td>Text up to 50 characters</td>
+                            <td>"John Smith", "Developer"</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">DECIMAL(5,2)</span></td>
+                            <td>Decimal numbers</td>
+                            <td>99.99, 15.50</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">DATE</span></td>
+                            <td>Dates</td>
+                            <td>2024-01-15</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">BOOLEAN</span></td>
+                            <td>True or False</td>
+                            <td>TRUE, FALSE</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Example: Creating a Students Table</h3>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example:</strong>
+                    </div>
+                    <code>CREATE TABLE Students (
+    StudentID INT,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Age INT,
+    GPA DECIMAL(3,2),
+    EnrollmentDate DATE
+);</code>
+                    <p><strong>What this does:</strong></p>
+                    <ul>
+                        <li><span class="inline-code">StudentID</span> - stores student ID numbers (integers)</li>
+                        <li><span class="inline-code">FirstName</span> - stores first names (text, max 50 characters)</li>
+                        <li><span class="inline-code">LastName</span> - stores last names (text, max 50 characters)</li>
+                        <li><span class="inline-code">Age</span> - stores age (whole number)</li>
+                        <li><span class="inline-code">GPA</span> - stores GPA like 3.85 (decimal with 2 decimal places)</li>
+                        <li><span class="inline-code">EnrollmentDate</span> - stores enrollment dates</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <!-- SECTION 3: CONSTRAINTS -->
+            <section id="constraints" class="section">
+                <h2>3. SQL Constraints</h2>
+                
+                <div class="concept" style="margin-bottom: 30px;">
+                    <span class="emoji">📌</span>
+                    <strong>Concept:</strong> Constraints are <span class="highlight">rules</span> we add to columns to make sure the data is correct and makes sense. They prevent bad data from entering the database.
+                </div>
+                
+                <div class="subsection">
+                    <h3>PRIMARY KEY</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Problem It Solves:</strong> Each student needs a unique identifier. If two students have StudentID 1, it's impossible to tell them apart!
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    FirstName VARCHAR(50)
+);</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example:</strong>
+                        <p>StudentID 101 → John<br>StudentID 102 → Sarah<br>StudentID 103 → Mike</p>
+                        <p>Each student has ONE unique ID. No duplicates allowed.</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>NOT NULL</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Problem It Solves:</strong> Some information MUST be provided. You can't enroll a student without a name!
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL
+);</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example:</strong>
+                        <p>✅ Allowed: INSERT StudentID=101, FirstName="John"<br>
+                        ❌ Rejected: INSERT StudentID=102, FirstName=NULL</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>UNIQUE</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Problem It Solves:</strong> Two students can have the same name, but they shouldn't have the same email!
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    Email VARCHAR(100) UNIQUE
+);</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example:</strong>
+                        <p>✅ Allowed: john@email.com and sarah@email.com<br>
+                        ❌ Rejected: Two students with john@email.com</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>CHECK</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Problem It Solves:</strong> Age shouldn't be negative, and GPA shouldn't be above 4.0!
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    Age INT CHECK (Age >= 0 AND Age <= 120),
+    GPA DECIMAL(3,2) CHECK (GPA >= 0 AND GPA <= 4.0)
+);</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example:</strong>
+                        <p>✅ Allowed: Age=20, GPA=3.85<br>
+                        ❌ Rejected: Age=-5<br>
+                        ❌ Rejected: GPA=5.0</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>FOREIGN KEY</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Problem It Solves:</strong> We need to connect related data. A course enrollment must reference a real student and a real course!
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>CREATE TABLE Enrollments (
+    EnrollmentID INT PRIMARY KEY,
+    StudentID INT,
+    CourseID INT,
+    FOREIGN KEY (StudentID) REFERENCES Students(StudentID),
+    FOREIGN KEY (CourseID) REFERENCES Courses(CourseID)
+);</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example:</strong>
+                        <p>Students table has: StudentID 101, 102, 103<br>
+                        ✅ Allowed: Enroll StudentID 102 in a course<br>
+                        ❌ Rejected: Enroll StudentID 999 (doesn't exist)</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Complete Example with All Constraints</h3>
+                    <code>CREATE TABLE Students (
+    StudentID INT PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    Email VARCHAR(100) UNIQUE NOT NULL,
+    Age INT CHECK (Age >= 18),
+    GPA DECIMAL(3,2) CHECK (GPA >= 0 AND GPA <= 4.0)
+);</code>
+                </div>
+            </section>
+            
+            <!-- SECTION 4: INSERTING DATA -->
+            <section id="insert" class="section">
+                <h2>4. Inserting Data (INSERT INTO)</h2>
+                
+                <div class="concept">
+                    <span class="emoji">📌</span>
+                    <strong>Concept:</strong> After creating an empty table, we need to add data to it. The <span class="inline-code">INSERT INTO</span> command adds new rows to the table.
+                </div>
+                
+                <div class="subsection">
+                    <h3>Basic INSERT Syntax</h3>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>INSERT INTO TableName (Column1, Column2, Column3)
+VALUES (Value1, Value2, Value3);</code>
+                    
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>How It Works:</strong>
+                        <ul>
+                            <li>Tell SQL which table you're adding to</li>
+                            <li>List which columns you're filling</li>
+                            <li>Provide the values in the same order</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Correct Examples</h3>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 1: Adding One Student</strong>
+                    </div>
+                    <code>INSERT INTO Students (StudentID, FirstName, Email, Age, GPA)
+VALUES (101, 'John Smith', 'john@email.com', 20, 3.85);</code>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 2: Adding Multiple Students</strong>
+                    </div>
+                    <code>INSERT INTO Students (StudentID, FirstName, Email, Age, GPA)
+VALUES 
+    (101, 'John Smith', 'john@email.com', 20, 3.85),
+    (102, 'Sarah Jones', 'sarah@email.com', 21, 3.90),
+    (103, 'Mike Brown', 'mike@email.com', 19, 3.75);</code>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 3: Adding Data in Different Order</strong>
+                    </div>
+                    <code>INSERT INTO Students (FirstName, StudentID, Email, GPA, Age)
+VALUES ('Emma Davis', 104, 'emma@email.com', 3.92, 20);</code>
+                    <p>✅ This works! SQL matches the column names to the values, so order doesn't matter as long as they correspond.</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Common Mistakes Beginners Make</h3>
+                    
+                    <div class="mistake">
+                        <span class="emoji">⚠️</span>
+                        <strong>Mistake 1: Forgetting Quotes for Text</strong>
+                    </div>
+                    <code>❌ WRONG:
+INSERT INTO Students (StudentID, FirstName)
+VALUES (101, John);</code>
+                    <code>✅ CORRECT:
+INSERT INTO Students (StudentID, FirstName)
+VALUES (101, 'John');</code>
+                    <p><strong>Why:</strong> Text values must be in single quotes. Without quotes, SQL thinks "John" is a column name, not a value.</p>
+                    
+                    <div class="mistake">
+                        <span class="emoji">⚠️</span>
+                        <strong>Mistake 2: Wrong Number of Values</strong>
+                    </div>
+                    <code>❌ WRONG:
+INSERT INTO Students (StudentID, FirstName, Email)
+VALUES (101, 'John', 'john@email.com', 20);</code>
+                    <p><strong>Why:</strong> You listed 3 columns but provided 4 values. SQL won't know which value goes where.</p>
+                    
+                    <div class="mistake">
+                        <span class="emoji">⚠️</span>
+                        <strong>Mistake 3: Violating Constraints</strong>
+                    </div>
+                    <code>❌ WRONG:
+INSERT INTO Students (StudentID, FirstName, Age, GPA)
+VALUES (101, 'John', -5, 5.0);</code>
+                    <p><strong>Why:</strong> Age can't be negative (violates CHECK), and GPA can't be 5.0 (violates CHECK). This insert will be rejected!</p>
+                    
+                    <div class="mistake">
+                        <span class="emoji">⚠️</span>
+                        <strong>Mistake 4: Duplicate Primary Key</strong>
+                    </div>
+                    <code>❌ WRONG:
+INSERT INTO Students (StudentID, FirstName)
+VALUES (101, 'John');
+INSERT INTO Students (StudentID, FirstName)
+VALUES (101, 'Sarah');</code>
+                    <p><strong>Why:</strong> StudentID 101 already exists. PRIMARY KEY must be unique. The second insert will fail.</p>
+                </div>
+            </section>
+            
+            <!-- SECTION 5: AGGREGATE FUNCTIONS -->
+            <section id="aggregate" class="section">
+                <h2>5. Aggregate Functions</h2>
+                
+                <div class="concept">
+                    <span class="emoji">📌</span>
+                    <strong>Concept:</strong> Aggregate functions perform calculations on multiple rows and return a single result. They help you summarize data.
+                </div>
+                
+                <div class="subsection">
+                    <h3>COUNT - How Many?</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Purpose:</strong> Counts the number of rows that match a condition.
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT COUNT(*) FROM Students;</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Real-Life Analogy:</strong> A teacher counts attendance. "How many students are here today?" COUNT answers this.
+                    </div>
+                    <code>SELECT COUNT(*) FROM Students WHERE Age > 20;</code>
+                    <p>Returns: The number of students older than 20</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>SUM - Add Them Up</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Purpose:</strong> Adds up all values in a column.
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT SUM(ColumnName) FROM TableName;</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Real-Life Analogy:</strong> A cashier adds up all purchase prices. "What's the total bill?" SUM answers this.
+                    </div>
+                    <code>SELECT SUM(Price) FROM Orders;</code>
+                    <p>Returns: The total value of all orders</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>AVG - Find the Average</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Purpose:</strong> Calculates the average of all values in a column.
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT AVG(ColumnName) FROM TableName;</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Real-Life Analogy:</strong> A weather service calculates average temperature. "What's the average temperature this month?" AVG answers this.
+                    </div>
+                    <code>SELECT AVG(GPA) FROM Students;</code>
+                    <p>Returns: The average GPA of all students (e.g., 3.83)</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>MAX and MIN - Extremes</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Purpose:</strong> Finds the highest (MAX) or lowest (MIN) value.
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT MAX(ColumnName) FROM TableName;
+SELECT MIN(ColumnName) FROM TableName;</code>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Real-Life Analogy:</strong> In a race, "Who was the fastest?" (MAX speed) or "Who was slowest?" (MIN speed)
+                    </div>
+                    <code>SELECT MAX(GPA) FROM Students;  -- Highest GPA
+SELECT MIN(Age) FROM Students;   -- Youngest student</code>
+                </div>
+                
+                <div class="subsection">
+                    <h3>All Aggregate Functions Together</h3>
+                    <code>SELECT 
+    COUNT(*) as TotalStudents,
+    AVG(GPA) as AvgGPA,
+    MAX(GPA) as HighestGPA,
+    MIN(Age) as YoungestAge,
+    SUM(StudentID) as SumOfIDs
+FROM Students;</code>
+                </div>
+            </section>
+            
+            <!-- SECTION 6: GROUP BY -->
+            <section id="groupby" class="section">
+                <h2>6. GROUP BY and HAVING</h2>
+                
+                <div class="concept">
+                    <span class="emoji">📌</span>
+                    <strong>Concept:</strong> <span class="inline-code">GROUP BY</span> groups rows with similar values together, then applies aggregate functions to each group. <span class="inline-code">HAVING</span> filters these grouped results.
+                </div>
+                
+                <div class="subsection">
+                    <h3>Why GROUP BY is Needed</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Problem It Solves:</strong>
+                        <p>Imagine you're a teacher with students in different majors:</p>
+                        <ul>
+                            <li>Math: John, Sarah, Emma</li>
+                            <li>Computer Science: Mike, Lisa, Alex</li>
+                            <li>Physics: David, Rachel</li>
+                        </ul>
+                        <p>If you ask "What's the average GPA?", you get ONE number for everyone. But if you ask "What's the average GPA BY MAJOR?", you want three numbers - one for each major!</p>
+                        <p><span class="highlight">That's what GROUP BY does!</span></p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>GROUP BY Syntax and Example</h3>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT ColumnToGroup, AGGREGATE_FUNCTION(ColumnToCalculate)
+FROM TableName
+GROUP BY ColumnToGroup;</code>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example: Average GPA by Major</strong>
+                    </div>
+                    <code>SELECT Major, AVG(GPA) as AverageGPA
+FROM Students
+GROUP BY Major;</code>
+                    
+                    <p><strong>Result might look like:</strong></p>
+                    <table>
+                        <tr>
+                            <th>Major</th>
+                            <th>AverageGPA</th>
+                        </tr>
+                        <tr>
+                            <td>Math</td>
+                            <td>3.87</td>
+                        </tr>
+                        <tr>
+                            <td>Computer Science</td>
+                            <td>3.92</td>
+                        </tr>
+                        <tr>
+                            <td>Physics</td>
+                            <td>3.75</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example: Count Students by Age</strong>
+                    </div>
+                    <code>SELECT Age, COUNT(*) as NumberOfStudents
+FROM Students
+GROUP BY Age;</code>
+                    
+                    <p><strong>Result might look like:</strong></p>
+                    <table>
+                        <tr>
+                            <th>Age</th>
+                            <th>NumberOfStudents</th>
+                        </tr>
+                        <tr>
+                            <td>19</td>
+                            <td>5</td>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>8</td>
+                        </tr>
+                        <tr>
+                            <td>21</td>
+                            <td>6</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>What is HAVING?</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Why We Need HAVING:</strong>
+                        <p><span class="inline-code">WHERE</span> filters rows BEFORE grouping, but HAVING filters groups AFTER grouping.</p>
+                        <p>Example: You want only majors with average GPA above 3.8. HAVING lets you filter grouped results!</p>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>GROUP BY with HAVING Syntax</h3>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT ColumnToGroup, AGGREGATE_FUNCTION(Column)
+FROM TableName
+GROUP BY ColumnToGroup
+HAVING AGGREGATE_FUNCTION(Column) > Value;</code>
+
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 1: Majors with Average GPA Above 3.8</strong>
+                    </div>
+                    <code>SELECT Major, AVG(GPA) as AverageGPA
+FROM Students
+GROUP BY Major
+HAVING AVG(GPA) > 3.8;</code>
+
+                    <p><strong>Result:</strong></p>
+                    <table>
+                        <tr>
+                            <th>Major</th>
+                            <th>AverageGPA</th>
+                        </tr>
+                        <tr>
+                            <td>Math</td>
+                            <td>3.87</td>
+                        </tr>
+                        <tr>
+                            <td>Computer Science</td>
+                            <td>3.92</td>
+                        </tr>
+                    </table>
+                    <p>❗ Physics (3.75) is excluded because it doesn't meet the HAVING condition!</p>
+
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 2: Age Groups with More Than 5 Students</strong>
+                    </div>
+                    <code>SELECT Age, COUNT(*) as NumberOfStudents
+FROM Students
+GROUP BY Age
+HAVING COUNT(*) > 5;</code>
+
+                    <p><strong>Result:</strong></p>
+                    <table>
+                        <tr>
+                            <th>Age</th>
+                            <th>NumberOfStudents</th>
+                        </tr>
+                        <tr>
+                            <td>20</td>
+                            <td>8</td>
+                        </tr>
+                    </table>
+                    <p>Age 19 (5 students) and Age 21 (6 students) - Wait! Age 21 has 6 students, so it WILL show.</p>
+
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 3: Departments with Total Salary Bill Over $500,000</strong>
+                    </div>
+                    <code>SELECT Department, SUM(Salary) as TotalSalary
+FROM Employees
+GROUP BY Department
+HAVING SUM(Salary) > 500000;</code>
+                </div>
+
+                <div class="subsection">
+                    <h3>GROUP BY vs WHERE vs HAVING</h3>
+                    <table>
+                        <tr>
+                            <th>Clause</th>
+                            <th>When Used</th>
+                            <th>Filters What?</th>
+                            <th>Example</th>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">WHERE</span></td>
+                            <td>Before grouping</td>
+                            <td>Individual rows</td>
+                            <td>WHERE Age > 20</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">GROUP BY</span></td>
+                            <td>Group rows</td>
+                            <td>Organizes data into groups</td>
+                            <td>GROUP BY Major</td>
+                        </tr>
+                        <tr>
+                            <td><span class="inline-code">HAVING</span></td>
+                            <td>After grouping</td>
+                            <td>Groups (aggregated results)</td>
+                            <td>HAVING AVG(GPA) > 3.8</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>Complete Example: WHERE + GROUP BY + HAVING</h3>
+                    <code>SELECT Major, AVG(GPA) as AverageGPA, COUNT(*) as StudentCount
+FROM Students
+WHERE Age >= 19
+GROUP BY Major
+HAVING COUNT(*) > 2;</code>
+                    
+                    <p><strong>What this does step-by-step:</strong></p>
+                    <ol>
+                        <li>WHERE Age >= 19 → Filter: Keep only students 19 years or older</li>
+                        <li>GROUP BY Major → Organize: Group remaining students by major</li>
+                        <li>HAVING COUNT(*) > 2 → Filter groups: Keep only majors with more than 2 students</li>
+                        <li>SELECT → Show: Major name, average GPA, and count per major</li>
+                    </ol>
+                </div>
+            </section>
+            
+            <!-- SECTION 7: JOINS -->
+            <section id="joins" class="section">
+                <h2>7. Joins - Combining Tables</h2>
+                
+                <div class="concept">
+                    <span class="emoji">📌</span>
+                    <strong>Concept:</strong> Joins combine data from two or more tables based on a matching column (usually a Foreign Key).
+                </div>
+                
+                <div class="subsection">
+                    <h3>Why Do We Need Joins?</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>The Problem:</strong>
+                        <p>Information is stored in separate tables for organization:</p>
+                        <ul>
+                            <li><strong>Students Table:</strong> StudentID, FirstName, StudentDeptID</li>
+                            <li><strong>Departments Table:</strong> DeptID, DeptName, Building</li>
+                        </ul>
+                        <p>To answer "What department is John in?" you need to <span class="highlight">JOIN these tables together</span> using the matching columns.</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>INNER JOIN - Only Matching Records</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>What It Does:</strong> Combines rows from both tables, but ONLY includes records that match in both tables.
+                    </div>
+                    <div class="diagram">
+                        <div class="mermaid">
+                            graph TB
+                                A["Students Table<br/>StudentID | Name"]
+                                B["Departments Table<br/>DeptID | DeptName"]
+                                A -->|INNER JOIN<br/>Matching records only| C["Result<br/>Only students with<br/>a valid department"]
+                                B -->|INNER JOIN| C
+                        </div>
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT Students.FirstName, Departments.DeptName
+FROM Students
+INNER JOIN Departments
+ON Students.DeptID = Departments.DeptID;</code>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example: Get Student Names and Their Departments</strong>
+                    </div>
+                    <p><strong>Students Table:</strong></p>
+                    <table>
+                        <tr>
+                            <th>StudentID</th>
+                            <th>FirstName</th>
+                            <th>DeptID</th>
+                        </tr>
+                        <tr>
+                            <td>101</td>
+                            <td>John</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>102</td>
+                            <td>Sarah</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>103</td>
+                            <td>Mike</td>
+                            <td>99</td>
+                        </tr>
+                    </table>
+                    
+                    <p><strong>Departments Table:</strong></p>
+                    <table>
+                        <tr>
+                            <th>DeptID</th>
+                            <th>DeptName</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Mathematics</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Physics</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Chemistry</td>
+                        </tr>
+                    </table>
+                    
+                    <p><strong>INNER JOIN Result:</strong></p>
+                    <table>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>DeptName</th>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>Mathematics</td>
+                        </tr>
+                        <tr>
+                            <td>Sarah</td>
+                            <td>Physics</td>
+                        </tr>
+                    </table>
+                    <p>❗ Notice: Mike (DeptID=99) is NOT in the result because DeptID 99 doesn't exist in Departments table!</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>LEFT JOIN - Keep All Left Table Records</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>What It Does:</strong> Keeps ALL records from the left table, and adds matching records from the right table. If no match, shows NULL/blank.
+                    </div>
+                    <div class="diagram">
+                        <div class="mermaid">
+                            graph TB
+                                A["Students Table<br/>(LEFT)<br/>StudentID | Name"]
+                                B["Departments Table<br/>(RIGHT)<br/>DeptID | DeptName"]
+                                A -->|LEFT JOIN<br/>All left + matching right| C["Result<br/>All students,<br/>with dept info if available"]
+                                B -->|LEFT JOIN| C
+                        </div>
+                    </div>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT Students.FirstName, Departments.DeptName
+FROM Students
+LEFT JOIN Departments
+ON Students.DeptID = Departments.DeptID;</code>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example: Get All Students with Their Departments (if assigned)</strong>
+                    </div>
+                    <p><strong>LEFT JOIN Result (using same tables as above):</strong></p>
+                    <table>
+                        <tr>
+                            <th>FirstName</th>
+                            <th>DeptName</th>
+                        </tr>
+                        <tr>
+                            <td>John</td>
+                            <td>Mathematics</td>
+                        </tr>
+                        <tr>
+                            <td>Sarah</td>
+                            <td>Physics</td>
+                        </tr>
+                        <tr>
+                            <td>Mike</td>
+                            <td>(NULL/Empty)</td>
+                        </tr>
+                    </table>
+                    <p>✅ Now Mike IS in the result! His DeptName is empty because DeptID 99 doesn't exist.</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>When to Use INNER vs LEFT JOIN</h3>
+                    <table>
+                        <tr>
+                            <th>Use INNER JOIN When...</th>
+                            <th>Use LEFT JOIN When...</th>
+                        </tr>
+                        <tr>
+                            <td>You need only complete records with matches in both tables</td>
+                            <td>You want all records from the first table, even without matches</td>
+                        </tr>
+                        <tr>
+                            <td>Example: Orders with valid customers</td>
+                            <td>Example: All customers, with their orders (if any)</td>
+                        </tr>
+                        <tr>
+                            <td>Example: Employees in departments</td>
+                            <td>Example: All employees, even those not yet assigned to departments</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- SECTION 8: SUBQUERIES -->
+            <section id="subqueries" class="section">
+                <h2>8. Subqueries - Queries Within Queries</h2>
+                
+                <div class="concept">
+                    <span class="emoji">📌</span>
+                    <strong>Concept:</strong> A subquery is a SQL query inside another SQL query. The inner query (subquery) runs first, and its result helps the outer query.
+                </div>
+                
+                <div class="subsection">
+                    <h3>What is a Subquery?</h3>
+                    <div class="logic">
+                        <span class="emoji">🧠</span>
+                        <strong>Real-Life Analogy:</strong>
+                        <p>Imagine you want to find "All employees who earn more than the average salary."</p>
+                        <ul>
+                            <li>First: Calculate the average salary (subquery)</li>
+                            <li>Then: Find employees earning more than that average (outer query)</li>
+                        </ul>
+                        <p>A subquery lets you do both in one command!</p>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Simple Subquery Example</h3>
+                    <h4><span class="emoji">🧩</span>Syntax:</h4>
+                    <code>SELECT ColumnName
+FROM TableName
+WHERE ColumnName > (SELECT AVG(ColumnName) FROM TableName);</code>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example: Find Students with Above-Average GPA</strong>
+                    </div>
+                    <code>SELECT FirstName, GPA
+FROM Students
+WHERE GPA > (SELECT AVG(GPA) FROM Students);</code>
+                    
+                    <p><strong>How it works:</strong></p>
+                    <ol>
+                        <li>Inner query: <span class="inline-code">SELECT AVG(GPA) FROM Students</span> → calculates average (let's say 3.80)</li>
+                        <li>Outer query: Uses result → <span class="inline-code">WHERE GPA > 3.80</span></li>
+                        <li>Returns: Only students with GPA above 3.80</li>
+                    </ol>
+                </div>
+                
+                <div class="subsection">
+                    <h3>When to Use Subqueries</h3>
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 1: Find Students in the Same Major as John</strong>
+                    </div>
+                    <code>SELECT FirstName, Major
+FROM Students
+WHERE Major = (SELECT Major FROM Students WHERE FirstName = 'John');</code>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 2: Find Expensive Products (Above Average Price)</strong>
+                    </div>
+                    <code>SELECT ProductName, Price
+FROM Products
+WHERE Price > (SELECT AVG(Price) FROM Products);</code>
+                    
+                    <div class="example">
+                        <span class="emoji">📝</span>
+                        <strong>Example 3: Find Students Older Than the Youngest Student</strong>
+                    </div>
+                    <code>SELECT FirstName, Age
+FROM Students
+WHERE Age > (SELECT MIN(Age) FROM Students);</code>
+                </div>
+                
+                <div class="subsection">
+                    <h3>Subquery vs JOIN - Which to Use?</h3>
+                    <table>
+                        <tr>
+                            <th>Subquery</th>
+                            <th>JOIN</th>
+                        </tr>
+                        <tr>
+                            <td>Better for simple calculations first</td>
+                            <td>Better for combining multiple table columns</td>
+                        </tr>
+                        <tr>
+                            <td>Example: Find above-average items</td>
+                            <td>Example: Get names and department info</td>
+                        </tr>
+                        <tr>
+                            <td>Easier to read for beginners</td>
+                            <td>Often more efficient for databases</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+            
+            <!-- SUMMARY SECTION -->
+            <section class="section">
+                <h2>📚 Summary: SQL Learning Journey</h2>
+                <div class="diagram">
+                    <div class="mermaid">
+                        graph TD
+                            A["1. Introduction<br/>Understand WHY SQL"] --> B["2. CREATE TABLE<br/>Build your database structure"]
+                            B --> C["3. Constraints<br/>Protect your data quality"]
+                            C --> D["4. INSERT<br/>Add data to tables"]
+                            D --> E["5. Aggregate Functions<br/>Summarize data"]
+                            E --> F["6. GROUP BY & HAVING<br/>Organize & filter summaries"]
+                            F --> G["7. JOINS<br/>Combine multiple tables"]
+                            G --> H["8. Subqueries<br/>Complex queries"]
+                            H --> I["🎉 You're a SQL Beginner!"]
+                            style A fill:#e8f5e9
+                            style I fill:#fff3e0
+                    </div>
+                </div>
+                
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 5px; margin-top: 20px;">
+                    <h3 style="color: #1976d2;">Next Steps for Learning:</h3>
+                    <ul>
+                        <li><strong>Practice:</strong> Install MySQL, PostgreSQL, or SQLite and try these examples yourself</li>
+                        <li><strong>Build Projects:</strong> Create a student registration system or a library management system</li>
+                        <li><strong>Learn More:</strong> UPDATE statements, DELETE statements, and complex queries</li>
+                        <li><strong>Master Optimization:</strong> Learn about indexes and query performance</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+        
+        <footer>
+            <p>&copy; 2024 SQL Fundamentals for Beginners | Learn to Query Like a Pro!</p>
+        </footer>
+    </div>
+    
+    <script>
+        mermaid.initialize({ startOnLoad: true, theme: 'default' });
+        mermaid.contentLoaded();
+
+        // Tab switching functionality
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const tabName = this.getAttribute('data-tab');
+                
+                // Hide all sections
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                // Remove active class from all buttons
+                navButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                // Show selected section
+                document.getElementById(tabName).classList.add('active');
+                
+                // Add active class to clicked button
+                this.classList.add('active');
+                
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
